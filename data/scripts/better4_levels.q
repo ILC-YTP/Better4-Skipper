@@ -206,6 +206,48 @@ level_streets = {
   mod_factor_1 = 0.2
 }
 
+// THPS2
+
+script Load_NYC
+  load_level level_ny
+endscript
+
+level_ny = {
+  structure_name = level_ny
+  load_script = Load_NYC
+  name = "New York City"
+  level = "NY"
+  qb = "levels\NY\NY.qb"
+  // level_qb = "levels\NY\NY_scripts.qb"
+  sky = "NY_Sky"
+  ambient_track = "music\amb_alc"
+  loading_screen = "loadscrn_generic"
+  startup_script = NY_Startup
+  goals_script = ny_goals
+  setup_script = ny_setup
+  level_number = LevelNum_NYC
+  temp_script = load_cameras_and_terrains
+  // extranetanimsscript = load_level_anims
+  loading_time = 1
+  default_stats = 10
+  ambient_red = 69
+  ambient_green = 72
+  ambient_blue = 79
+  ambient_mod_factor = 0.3
+  heading_0 = -50.0
+  pitch_0 = -127.0
+  red_0 = 130
+  green_0 = 120
+  blue_0 = 97
+  mod_factor_0 = 1.4
+  heading_1 = 50.0
+  pitch_1 = -117.0
+  red_1 = 55
+  green_1 = 58
+  blue_1 = 61
+  mod_factor_1 = 0.2
+}
+
 // THPS3
 
 script Load_Rio
