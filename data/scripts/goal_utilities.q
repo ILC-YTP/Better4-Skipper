@@ -501,7 +501,7 @@ script goal_play_cam_anim
         targetOffset = (0, 47, 0)
         positionOffset = (10, 11, 75)
         frames = 120
-        skippable = 1
+        skippable = 0
         virtual_cam
       }
     else
@@ -512,15 +512,15 @@ script goal_play_cam_anim
         positionOffset = (10, 11, 75)
         frames = 120
         play_hold
-        skippable = 1
+        skippable = 0
         virtual_cam
       }
     endif
   else
     if GotParam no_play_hold
-      PlaySkaterCamAnim skaterId = <skaterId> name = <Anim> skippable = 1
+      PlaySkaterCamAnim skaterId = <skaterId> name = <Anim> skippable = 0
     else
-      PlaySkaterCamAnim skaterId = <skaterId> name = <Anim> play_hold skippable = 1
+      PlaySkaterCamAnim skaterId = <skaterId> name = <Anim> play_hold skippable = 0
     endif
   endif
   if GotParam just_won_goal
