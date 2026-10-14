@@ -577,7 +577,7 @@ script goal_play_cam_anim
       create_speech_box {
         text = "Press \m0 to continue"
         pad_choose_script = goal_description_and_speech_continue
-        pad_choose_params = { Anim = <Anim> }
+        pad_choose_params = { anim = <anim> }
       }
     endif
   else
@@ -1704,6 +1704,12 @@ script goal_give_rewards
     goal_got_cash amount = <cash>
     pause_trick_text
   endif
+  if GotParam reward_trickslot
+    if not GotParam already_added_trickslot
+      AwardSpecialTrickSlot all
+    endif
+    goal_got_trickslot
+  endif
   if ( ( GotParam cash ) or ( GotParam reward_trickslot ) )
     create_speech_box {
       text = "Press \m0 to continue"
@@ -1720,12 +1726,25 @@ script goal_give_rewards
       ForEachIn master_skater_list do = goal_award_stat_point
     repeat <reward_stat>
     goal_got_stat reward_stat = <reward_stat>
+  if not GotParam better4_skip_stats // Better4 setting param that skips the stats screen when you get a stat point. Message still appears reguardless.
+    WaitForEvent type = goal_got_reward_done
+    DebugFn 765
+    add_pause_menu_textures_to_vram
+    create_stats_menu {
+      pad_start = goal_stats_menu_exit
+      pad_back_script = goal_stats_menu_exit
+      done_button_pad_choose_script = goal_stats_menu_exit
+      update_all_skaters = update_all_skaters
+    }
+    kill_start_key_binding
+    SetScreenElementProps {
+      id = stats_menu
+      event_handlers = [ { pad_back goal_stats_menu_exit } ]
+      replace_handlers
+    }
+    WaitForEvent type = goal_stats_menu_done
+    DebugFn 766
   endif
-  if GotParam reward_trickslot
-    if not GotParam already_added_trickslot
-      AwardSpecialTrickSlot all
-    endif
-    goal_got_trickslot // Below this line used to be instructions to pause the game and show the stats menu after obtaining a new stat point
   endif
   if GotParam awarded_goal_point
     GoalManager_GetNumberOfGoalPoints total
@@ -1746,6 +1765,10 @@ script goal_give_rewards
   PauseMusic 0
   if GotParam volume
     SetMusicVolume ( <volume> * 10 )
+  endif
+  if not GotParam better4_skip_save // Better4 setting param that skips the save prompt when you complete a goal
+    goal_want_to_save
+    WaitForEvent type = goal_wait_for_save
   endif
   if ( Bootstrap_build = 0 )
     if GotParam awarded_goal_point
