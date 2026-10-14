@@ -1726,8 +1726,8 @@ script goal_give_rewards
       ForEachIn master_skater_list do = goal_award_stat_point
     repeat <reward_stat>
     goal_got_stat reward_stat = <reward_stat>
-  if not GotParam better4_skip_stats // Better4 setting param that skips the stats screen when you get a stat point. Message still appears reguardless.
-    WaitForEvent type = goal_got_reward_done
+	if not GotParam better4_skip_stats // Better4 setting param that skips the stats screen when you get a stat point. Message still appears reguardless.
+	  WaitForEvent type = goal_got_reward_done
     DebugFn 765
     add_pause_menu_textures_to_vram
     create_stats_menu {
@@ -1744,7 +1744,7 @@ script goal_give_rewards
     }
     WaitForEvent type = goal_stats_menu_done
     DebugFn 766
-  endif
+	endif
   endif
   if GotParam awarded_goal_point
     GoalManager_GetNumberOfGoalPoints total
@@ -3385,8 +3385,8 @@ endscript
 
 script goal_message_got_trickslot
   SetProps rgba = [ 43 95 53 128 ]
-  DoMorph time = 0 pos = (320, 320) scale = 0 alpha = 0 // text moved to prevent overlapping as all reward texts now show at the same time
-  DoMorph time = 0.5 alpha = 1
+  DoMorph time = 0 pos = (320, 200) scale = 0 alpha = 0 // text moved to prevent overlapping as all reward texts now show at the same time
+  DoMorph time = 0.1 alpha = 1
   if GotParam sound
     PlaySound <sound> vol = 150
   endif
@@ -3395,10 +3395,10 @@ script goal_message_got_trickslot
   DoMorph time = 0.1 scale = 1.2
   DoMorph time = 0.1 scale = 0.9
   DoMorph time = 0.1 scale = 1.0
-  DoMorph pos = (321, 321) time = 0.1
-  DoMorph pos = (319, 319) time = 0.1
-  DoMorph pos = (321, 321) time = 0.1
-  DoMorph pos = (319, 319) time = 0.1
+  DoMorph pos = (321, 201) time = 0.1
+  DoMorph pos = (319, 199) time = 0.1
+  DoMorph pos = (321, 201) time = 0.1
+  DoMorph pos = (319, 199) time = 0.1
   DoMorph time = 0.1 scale = 1.4
   DoMorph time = 0.15 scale = 0 alpha = 0
   Die
