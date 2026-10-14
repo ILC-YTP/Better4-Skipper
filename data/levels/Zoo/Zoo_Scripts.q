@@ -469,7 +469,7 @@ script Zoo_TrickspotEntranceTrigger1
   StartGap GapID = Aqua1 flags = [ CANCEL_GROUND ]
 endscript
 script Zoo_TrickspotContinueTrigger1
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     EndGap GapID = Aqua1 Text = "Aqua Sign Gap" score = 500
   endif
 endscript
@@ -479,7 +479,7 @@ script zoo_goal_trickspot_got_Gap1Hard
   if IsAlive name = TRG_Ped_Kenny_Heelflip
   else
     if GoalManager_SetGoalFlag name = zoo_goal_trickspot got_1 1
-      PlaySound GapSound
+      Playsound GapSound
       GetKeyComboArrayFromTrickArray tricks = [ Trick_Heelflip ]
        <combo_1> = ( ( goal_tetris_trick_text.( <keycombos> [ 0 ] ) ) )
       FormatText TextName = KennyText "Now do a heelflip on him! %a" a = <combo_1>
@@ -495,7 +495,7 @@ script zoo_goal_trickspot_got_Gap1Heel
   if IsAlive name = TRG_Ped_Kenny_Hardflip
   else
     if GoalManager_SetGoalFlag name = zoo_goal_trickspot got_1 1
-      PlaySound GapSound
+      Playsound GapSound
       GetKeyComboArrayFromTrickArray tricks = [ Trick_Hardflip ]
        <combo_1> = ( ( goal_tetris_trick_text.( <keycombos> [ 0 ] ) ) )
       FormatText TextName = KennyText "Now do a hardflip on him! %a" a = <combo_1>
@@ -517,7 +517,7 @@ script Zoo_Goal_Collect_Deactivate
   Kill prefix = "TRG_G_COLLECT_Penguin"
 endscript
 script Zoo_Comp_Intro
-  Wait 1 frame
+  wait 1 frame
   Kill name = TRG_Ped_TramRider01
   Kill name = TRG_Ped_TramDriver
   Kill name = TRG_Tram
@@ -661,7 +661,7 @@ endscript
 script Zoo_Trickspot_Deactivate
   Kill name = TRG_Ped_Kenny_Heelflip
   Kill name = TRG_Ped_Kenny_Hardflip
-  Wait 1 frame
+  wait 1 frame
   if IsAlive name = TRG_Ped_Kenny
     Kill name = TRG_Ped_Kenny
   endif
@@ -690,7 +690,7 @@ script Zoo_CounterCombo_Deactivate
 endscript
 script Zoo_Goal_Gap3_Intro
   Kill prefix = "Pumpkin_"
-  Wait 1 frame
+  wait 1 frame
   Create prefix = "Pumpkin_"
 endscript
 script Zoo_Goal_Gap3_Deactivate
@@ -700,7 +700,7 @@ script Zoo_Goal_Collect2_Intro
   Kill prefix = "Pumpkin_"
   Kill name = proset2_QP02
   Kill prefix = "trg_proset2_QP_Rail"
-  Wait 1 frame
+  wait 1 frame
   Create prefix = "Pumpkin_"
 endscript
 script Zoo_Goal_Collect2_Deactivate
@@ -820,9 +820,9 @@ script Zoo_CreateBirdNoises
   endif
 endscript
 script Zoo_BirdNoises
-  Obj_PlaySound manybirdchirps_rd
+  Obj_Playsound manybirdchirps_rd
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script Zoo_CreatePenguinNoises
@@ -836,7 +836,7 @@ script Zoo_Cockatoo
   Obj_ClearExceptions
   Obj_SetException ex = SkaterInRadius scr = Zoo_Cockatoo_Fly
   Obj_SetInnerRadius 10
-  Wait random( @5 frames @15 frames @30 frames @45 frames ) 
+  wait random( @5 frames @15 frames @30 frames @45 frames ) 
   begin
     Obj_CycleAnim anim = Idle numcycles = random( @1 @2 @3 ) 
     Obj_CycleAnim anim = Preen numcycles = random( @1 @2 ) 
@@ -869,16 +869,16 @@ endscript
 script CockatooCounter
    <number_collected> = 0
   begin
-    Wait 10 frames
+    wait 10 frames
     if GoalManager_GoalExists name = Zoo_Goal_CounterCombo
       if GoalManager_GoalIsActive name = Zoo_Goal_CounterCombo
          <tempvar> = <number_collected>
         GoalManager_GetNumberCollected name = Zoo_Goal_CounterCombo
         if ( <tempvar> < <number_collected> )
           if ( <number_collected> < 40 )
-            PlaySound hud_jumpgap vol = 70
+            Playsound hud_jumpgap vol = 70
           else
-            PlaySound cash vol = 130
+            Playsound cash vol = 130
           endif
         endif
       endif
@@ -886,9 +886,9 @@ script CockatooCounter
   repeat
 endscript
 script Zoo_PenguinNoises
-  Obj_PlaySound penguingroup1_rd
+  Obj_Playsound penguingroup1_rd
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script Zoo_CreateMonkeyNoises
@@ -898,15 +898,15 @@ script Zoo_CreateMonkeyNoises
   endif
 endscript
 script Zoo_MonkeyNoises
-  Obj_PlaySound monkey_rd
+  Obj_Playsound monkey_rd
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script Zoo_LionNoises
   begin
-    Obj_PlaySound random( @lion2 @lion3 ) 
-    Wait random( @1 second @2 seconds ) 
+    Obj_Playsound random( @lion2 @lion3 ) 
+    wait random( @1 second @2 seconds ) 
   repeat
 endscript
 EXCEPTION_LION_DONE = 1
@@ -926,21 +926,21 @@ script Zoo_Chase_Manager
       Kill name = TRG_Chase_Effects
       Kill name = TRG_CHASE_Collision01
     endif
-    Wait 5 frames
+    wait 5 frames
   repeat
 endscript
 script Zoo_Chase_Effects
   begin
-    PlaySound random( @lion2 @lion3  ) pitch = random( @100 @105 @110  ) vol = random( @125 @150 @175 ) 
+    Playsound random( @lion2 @lion3  ) pitch = random( @100 @105 @110  ) vol = random( @125 @150 @175 ) 
     if not IsAlive name = TRG_Text_Chase
       Create name = TRG_Text_Chase
     endif
-    Wait 1.5 seconds
+    wait 1.5 seconds
   repeat
 endscript
 script Zoo_Chase_Text
   create_panel_block id = Lion_Chase Text = "Run!!!" style = panel_message_goal time = 1500
-  Wait 1.4 seconds
+  wait 1.4 seconds
   RunScriptOnScreenElement id = Lion_Chase kill_panel_message
   Die
 endscript
@@ -953,7 +953,7 @@ script Zoo_Chase_Lion_ToEnd
   GetNodeName
   Obj_PlayAnim anim = Walk cycle
   if ( <nodename> = TRG_CHASE_Lion01 )
-    Printf "Chase_Lion01"
+    printf "Chase_Lion01"
     Obj_MoveToNode name = TRG_Lion01 speed = 4
     Obj_WaitMove
     Obj_LookAtNode name = TRG_LionNav01 time = 0.5
@@ -963,7 +963,7 @@ script Zoo_Chase_Lion_ToEnd
     endif
     Die
   else
-    Printf "Chase_Lion02"
+    printf "Chase_Lion02"
     Obj_MoveToNode name = TRG_Lion02 speed = 4
     Obj_WaitMove
     Obj_LookAtNode name = TRG_LionNav13 time = 0.5
@@ -979,7 +979,7 @@ script Zoo_Chase_Lion_ToEndKill
   if not IsAlive name = TRGP_LionKill
     Create name = TRGP_LionKill
   endif
-  Wait 5 frames
+  wait 5 frames
   Goto Zoo_Chase_Lion_ToEnd
 endscript
 script Zoo_Chase_Lion_Waiting
@@ -1000,31 +1000,31 @@ script Zoo_Chase_Lion_CheckFollow
   Obj_SetOuterRadius 45
   Obj_SetException ex = EXCEPTION_LION_DONE scr = Zoo_Chase_Lion_ToEnd
   Obj_SetException ex = SkaterOutOfRadius scr = Zoo_Chase_Lion_Waiting
-  Printf "Fuckup Area C"
+  printf "Fuckup Area C"
   begin
     Obj_LookAtObject type = Skater time = 0.1
     Obj_WaitRotate
     Obj_GetDistanceToObject Skater
     if ( ( <ObjectDistance> - 10 ) < 0 )
        <ObjectDistance> = 10
-      Printf "Fuckup Area D"
+      printf "Fuckup Area D"
     endif
     if not Obj_GetCollision height = 0.1 length = ( <ObjectDistance> - 10 )
       if not Obj_GetCollision height = -10.0 length = ( <ObjectDistance> - 10 )
-        Printf "Fuckup Area E"
+        printf "Fuckup Area E"
         Obj_PlayAnim anim = Pounce
         Obj_MoveForward dist = ( ( <ObjectDistance> - 10 ) * 12 ) speed = 40 acceleration = 10000
         Obj_WaitMove
-        GotoPreserveParams Zoo_Chase_Lion_Follow
+        gotopreserveparams Zoo_Chase_Lion_Follow
       endif
     endif
-    Wait 1 gameframe
+    wait 1 gameframe
   repeat
 endscript
 script Zoo_Chase_Lion_Follow
   Obj_ClearExceptions
   Obj_SetException ex = EXCEPTION_LION_DONE scr = Zoo_Chase_Lion_ToEnd
-  Printf "Fuckup Area F"
+  printf "Fuckup Area F"
   if not IsAlive name = TRG_Chase_Effects
     Create name = TRG_Chase_Effects
   endif
@@ -1044,117 +1044,117 @@ script Zoo_Chase_Lion_Follow
               if not Obj_GetCollision height = -10.0 length = -1
                 if not Obj_GetCollision side height = -10 length = 1
                   if not Obj_GetCollision side height = -10 length = -1
-                    Printf "Fuckup Area G"
+                    printf "Fuckup Area G"
                     Skater:Obj_GetSpeed
                     if ( <speed> < 25 )
-                      Printf "Fuckup Area H"
+                      printf "Fuckup Area H"
                       Obj_FollowLeader off
-                      GotoPreserveParams Zoo_Chase_Lion_Kill
+                      gotopreserveparams Zoo_Chase_Lion_Kill
                     endif
                   else
                     Obj_FollowLeader off
-                    Printf "Fuckup Area I"
+                    printf "Fuckup Area I"
                     if ( <ObjectDistance> > 10 )
                       Kill name = TRG_Chase_Effects
                     endif
-                    GotoPreserveParams Zoo_Chase_Lion_Waiting
+                    gotopreserveparams Zoo_Chase_Lion_Waiting
                   endif
                 else
                   Obj_FollowLeader off
-                  Printf "Fuckup Area I"
+                  printf "Fuckup Area I"
                   if ( <ObjectDistance> > 10 )
                     Kill name = TRG_Chase_Effects
                   endif
-                  GotoPreserveParams Zoo_Chase_Lion_Waiting
+                  gotopreserveparams Zoo_Chase_Lion_Waiting
                 endif
               else
                 Obj_FollowLeader off
-                Printf "Fuckup Area I"
+                printf "Fuckup Area I"
                 if ( <ObjectDistance> > 10 )
                   Kill name = TRG_Chase_Effects
                 endif
-                GotoPreserveParams Zoo_Chase_Lion_Waiting
+                gotopreserveparams Zoo_Chase_Lion_Waiting
               endif
             else
               Obj_FollowLeader off
-              Printf "Fuckup Area I"
+              printf "Fuckup Area I"
               if ( <ObjectDistance> > 10 )
                 Kill name = TRG_Chase_Effects
               endif
-              GotoPreserveParams Zoo_Chase_Lion_Waiting
+              gotopreserveparams Zoo_Chase_Lion_Waiting
             endif
           else
             Obj_FollowLeader off
-            Printf "Fuckup Area I"
+            printf "Fuckup Area I"
             if ( <ObjectDistance> > 10 )
               Kill name = TRG_Chase_Effects
             endif
-            GotoPreserveParams Zoo_Chase_Lion_Waiting
+            gotopreserveparams Zoo_Chase_Lion_Waiting
           endif
         else
           Obj_FollowLeader off
-          Printf "Fuckup Area I"
+          printf "Fuckup Area I"
           if ( <ObjectDistance> > 10 )
             Kill name = TRG_Chase_Effects
           endif
-          GotoPreserveParams Zoo_Chase_Lion_Waiting
+          gotopreserveparams Zoo_Chase_Lion_Waiting
         endif
       else
         Obj_FollowLeader off
-        Printf "Fuckup Area I"
+        printf "Fuckup Area I"
         if ( <ObjectDistance> > 10 )
           Kill name = TRG_Chase_Effects
         endif
-        GotoPreserveParams Zoo_Chase_Lion_Waiting
+        gotopreserveparams Zoo_Chase_Lion_Waiting
       endif
     else
-      Printf "Fuckup Area J"
+      printf "Fuckup Area J"
       Obj_FollowLeader off
       if ( <ObjectDistance> > 10 )
         Kill name = TRG_Chase_Effects
       endif
-      GotoPreserveParams Zoo_Chase_Lion_Waiting
+      gotopreserveparams Zoo_Chase_Lion_Waiting
     endif
-    Wait 1 gameframe
+    wait 1 gameframe
   repeat
 endscript
 script Zoo_Chase_Lion_Kill
   Obj_ClearExceptions
   Obj_SetException ex = EXCEPTION_LION_DONE scr = Zoo_Chase_Lion_ToEnd
-  Printf "Fuckup Area K"
+  printf "Fuckup Area K"
   Obj_LookAtObject type = Skater time = 0.1
   Obj_WaitRotate
   Obj_GetDistanceToObject Skater
   if ( ( <ObjectDistance> - 1 ) < 0 )
      <ObjectDistance> = 1
   endif
-  PrintStruct <...>
+  printstruct <...>
   if not Obj_GetCollision height = 0.1 length = <ObjectDistance>
     if not Obj_GetCollision height = -10.0 length = <ObjectDistance>
-      Printf "Fuckup Area L"
+      printf "Fuckup Area L"
       Obj_MoveForward dist = ( ( <ObjectDistance> -1 ) * 12 ) speed = 40 acceleration = 10000
       Obj_PlayAnim anim = Pounce
       MakeSkaterGoto PedKnockDown
       Obj_WaitMove
       Obj_PlayAnim anim = Idle cycle
-      Wait 2 seconds
-      Skater:Sk3_Killskater nodename = TRG_G_TS4_RestartNode { message1 = "Cat Food!"
+      wait 2 seconds
+      Skater:sk3_killskater nodename = TRG_G_TS4_RestartNode { message1 = "Cat Food!"
         message2 = "When Animals Attack!"
         message3 = "Nice Kitty!"
         message4 = "To The Lions!"
         r = 0 g = 0 b = 155
       }
     else
-      Printf "Fuckup Area M"
+      printf "Fuckup Area M"
       Obj_PlayAnim anim = Idle cycle
-      GotoPreserveParams Zoo_Chase_Lion_Waiting
+      gotopreserveparams Zoo_Chase_Lion_Waiting
     endif
   else
-    Printf "Fuckup Area N"
+    printf "Fuckup Area N"
     Obj_PlayAnim anim = Idle cycle
-    GotoPreserveParams Zoo_Chase_Lion_Waiting
+    gotopreserveparams Zoo_Chase_Lion_Waiting
   endif
-  GotoPreserveParams Zoo_Chase_Lion_Waiting
+  gotopreserveparams Zoo_Chase_Lion_Waiting
 endscript
 script Zoo_KillSkaterLion
   TeleportSkaterToNode nodename = TRG_G_TS4_RestartNode
@@ -1164,7 +1164,7 @@ script Zoo_Tram_Sign_Knock
   if IsAlive name = Zoo_Tram_Sign_Move
   else
     Create name = Zoo_Tram_Sign_Move
-    PlaySound HitFlimsyWood_11
+    Playsound HitFlimsyWood_11
   endif
   Kill name = Zoo_Tram_Sign_Start
 endscript
@@ -1190,14 +1190,14 @@ endscript
 script Zoo_Tram_Script
   TeleportSkaterToNode nodename = TRG_Restart01
   if GoalManager_GoalIsActive name = zoo_goal_race
-    create_panel_message id = goal_message Text = "He got away!" style = panel_message_generic_loss
+    create_panel_message id = goal_message text = "He got away!" style = panel_message_generic_loss
     GoalManager_LoseGoal name = zoo_goal_race
   endif
 endscript
 script Zoo_Tram_Script2
   TeleportSkaterToNode nodename = TRG_Restart03
   if GoalManager_GoalIsActive name = zoo_goal_race
-    create_panel_message id = goal_message Text = "He got away!" style = panel_message_generic_loss
+    create_panel_message id = goal_message text = "He got away!" style = panel_message_generic_loss
     GoalManager_LoseGoal name = zoo_goal_race
   endif
 endscript
@@ -1208,7 +1208,7 @@ script Zoo_LoseHighCombo2
   endif
 endscript
 script Zoo_BreakawayCage
-  PlaySound BonkMetal_11
+  Playsound BonkMetal_11
   ShatterAndDie name = <name> area = 5000 variance = 4 vel_x = 50 vel_y = 50 vel_z = 50 spread = 1
 endscript
 script Zoo_Test_Object
@@ -1265,7 +1265,7 @@ script Zoo_Ped_Stroller_Knock
   MakeSkaterGoto PedKnockDown
   Obj_CycleAnim anim = Ped_ST_Knock
   Obj_CycleAnim anim = Ped_ST_Idle
-  GotoPreserveParams Zoo_Ped_Stroller_Walk
+  gotopreserveparams Zoo_Ped_Stroller_Walk
 endscript
 script Zoo_Ped_Worker
   Obj_ClearExceptions
@@ -1311,7 +1311,7 @@ script Zoo_Ped_Elephant
   Obj_SetException ex = SkaterInRadius scr = Zoo_Ped_BailWhenSkaterClose
   Obj_SetInnerRadius 5
   Obj_SetException ex = ZOO_ELEPHANT_SCARED scr = Zoo_Ped_Stampede
-  Wait random( @5 frames @10 frames @15 frames ) 
+  wait random( @5 frames @10 frames @15 frames ) 
   begin
     Obj_CycleAnim anim = Ped_M_Idle1 numcycles = random( @2 @4 @7 @9 ) 
     Obj_CycleAnim anim = Ped_M_Idle1toIdle2
@@ -1323,8 +1323,9 @@ script Zoo_Ped_Elephant
 endscript
 script Zoo_Ped_BailWhenSkaterClose
   Obj_ClearExceptions
-  PlaySound bail04
-  random( @Obj_CycleAnim anim = Ped_M_FalldownA
+  Playsound bail04
+  random( @
+  Obj_CycleAnim anim = Ped_M_FalldownA
   Obj_PlayAnim anim = Ped_M_LayIdleA cycle
   SetTags bail = a
   @Obj_CycleAnim anim = Ped_M_FalldownB
@@ -1396,17 +1397,17 @@ script Zoo_Scare_Elephant ID = thatdamnelephantisgoingapeshit
     PlaySkaterCamAnim Skater = 0 name = CAM_ELEPHANT
     PauseSkaters
     PauseClock
-  SpawnScript Zoo_Scare_Elephant_Skip_Dialog
-    Wait 395 frames
-  if not GetFlag flag = ZOO_ELEPHANT_SKIP
+	SpawnScript Zoo_Scare_Elephant_Skip_Dialog
+    wait 395 frames
+	if not GetFlag flag = ZOO_ELEPHANT_SKIP
     Create name = Zoo_PicnicDamage01
     Kill prefix = "Zoo_PicnicNormal"
-    PlaySound HitMetalPlexiglass_11
+    Playsound HitMetalPlexiglass_11
     begin
       if SkaterCamAnimFinished name = CAM_ELEPHANT
         break
       endif
-      Wait 2 frames
+      wait 2 frames
     repeat
     Create name = TRG_Elephant_Rearing
     Create name = TRG_Elephant_Trainer_Shoot
@@ -1417,12 +1418,12 @@ script Zoo_Scare_Elephant ID = thatdamnelephantisgoingapeshit
     Create prefix = "Zoo_BridgeDestroyed"
     Kill prefix = "TRG_Rail_Bridge"
     Create prefix = "TRG_Rail_Damage"
-    Wait 80 frames
+    wait 80 frames
     Create name = Damage_Boards
     Create prefix = "DoorRotate"
     Create prefix = "BounceDoor"
     Kill name = BOARDED_01
-    PlaySound HitFlimsyWood_11
+    Playsound HitFlimsyWood_11
     begin
       if SkaterCamAnimFinished name = CAM_ELEPHANT2
         UnPauseClock
@@ -1430,13 +1431,13 @@ script Zoo_Scare_Elephant ID = thatdamnelephantisgoingapeshit
         TeleportSkaterDown
         break
       endif
-      Wait 2 frames
+      wait 2 frames
     repeat
     Kill name = Damage_Boards
     Create name = Damage_boards02
     Create prefix = "FallenDoor"
-  speech_box_exit
-  endif
+	speech_box_exit
+    endif
   endif
 endscript
 script Zoo_Scare_Elephant_Skip_Dialog ID = skipstompydialog
@@ -1476,11 +1477,11 @@ script Zoo_Scare_Elephant_Skip_Activate ID = skippingstompy
   TeleportSkaterDown
 endscript
 script Zoo_Elephant_Stampede
-  PlaySound ElephantBlast
+  Playsound ElephantBlast
   Obj_CycleAnim anim = Rearing from = start to = 95
-  PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+  Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
   Obj_CycleAnim anim = Rearing from = 96 to = 100
-  PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+  Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
   Obj_CycleAnim anim = Rearing from = 100
   Obj_CycleAnim anim = IdleToRun BlendPeriod = 0.5
   Obj_StickToGround distAbove = 3 distBelow = 6
@@ -1490,19 +1491,19 @@ script Zoo_Elephant_Stampede
   Obj_SetPathAcceleration 10 mphps
   Obj_SetPathDeceleration 10 mphps
   Obj_SetPathMinStopVel 5
-  PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+  Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
   Obj_CycleAnim anim = Run from = start to = 13 BlendPeriod = 0.5
   begin
-    PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 14 to = 26
-    PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 27 to = 42
-    PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 43 to = end
     if not Obj_IsMoving
       Die
     endif
-    PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = start to = 13
   repeat
 endscript
@@ -1518,12 +1519,12 @@ script Zoo_Elephant_Rearing
   begin
     if Obj_IsMoving
     else
-      PlaySound ElephantBlast
+      Playsound ElephantBlast
       Obj_CycleAnim anim = Rearing
       Obj_CycleAnim anim = Idle
       Die
     endif
-    Wait 10 frames
+    wait 10 frames
   repeat
 endscript
 script Zoo_Elephant_Chillin
@@ -1534,7 +1535,7 @@ script ZOO_Skitch_Checker
   Obj_SetException ex = SkaterInRadius scr = ZOO_Skitch_Checker_Near
   Obj_SetInnerRadius 60
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script ZOO_Skitch_Checker_Near
@@ -1542,7 +1543,7 @@ script ZOO_Skitch_Checker_Near
   Obj_SetException ex = SkaterOutOfRadius scr = ZOO_Skitch_Checker
   Obj_SetOuterRadius 65
   begin
-    if Skater:AnimEquals SkitchRange
+    if Skater:animequals SkitchRange
       SendException OBJ_ELEPHANT_SKITCH name = TRG_Elephant_Collision
       SendException OBJ_ELEPHANT_SKITCH name = TRG_Elephant01
     else
@@ -1552,7 +1553,7 @@ script ZOO_Skitch_Checker_Near
         RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
       endif
     endif
-    Wait 30 frames
+    wait 30 frames
   repeat
 endscript
 script Zoo_Elephant_Walk
@@ -1566,13 +1567,13 @@ script Zoo_Elephant_Walk
   Obj_SetPathMinStopVel 5
   begin
     Obj_CycleAnim anim = Walk from = 0 to = 5
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Walk from = 5 to = 30
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Walk from = 30 to = 60
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Walk from = 60 to = 85
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 50 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Walk from = 85
   repeat
 endscript
@@ -1585,15 +1586,15 @@ script Zoo_Elephant_Walk_Fast
   Obj_SetPathAcceleration 10 mphps
   Obj_SetPathDeceleration 10 mphps
   Obj_SetPathMinStopVel 5
-  PlaySound ElephantBlast
+  Playsound ElephantBlast
   begin
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = start to = 13
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 14 to = 26
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 27 to = 42
-    Obj_PlaySound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
+    Obj_Playsound random( @StompyStep01 @StompyStep02 @StompyStep03 @StompyStep04  ) pitch = 100 vol = 100 dropoff = 5
     Obj_CycleAnim anim = Run from = 43 to = end
   repeat
 endscript
@@ -1601,28 +1602,32 @@ script Zoo_Elephant_Turd_Creator_Wait
   Obj_ClearExceptions
   Obj_SetInnerRadius 5
   Obj_SetException ex = SkaterInRadius scr = Zoo_Elephant_Turd_Creator_Create params = <...>
-  Printf "Waiting to turd"
+  printf "Waiting to turd"
 endscript
 script Zoo_Elephant_Turd_Creator_Create
   Obj_ClearExceptions
   Obj_SetOuterRadius 7
   Obj_SetException ex = SkaterOutOfRadius scr = Zoo_Elephant_Turd_Creator_Wait params = <...>
-  Printf "Turd Create"
+  printf "Turd Create"
   TRG_Elephant01:Obj_GetSpeed
   if ( <speed> > 15 )
-    if Skater:AnimEquals SkitchRange
-      random( @Skater:AdjustBalance TimeAdd = 4 SpeedMult = 1.5 LeanMult = 1.5
-      Printf "Turds Away"
+    if Skater:animequals SkitchRange
+      random( @
+      
+      Skater:AdjustBalance TimeAdd = 4 SpeedMult = 1.5 LeanMult = 1.5
+      printf "Turds Away"
       Create name = <turd>
-      @Wait 1
-     ) endif
+      @
+      wait 1
+       ) 
+    endif
   endif
 endscript
 script Zoo_Elephant_Turd
   Obj_SetPathAcceleration 100 mphps
   Obj_SetPathVelocity 45 mph
   Obj_FollowPathLinked
-  Obj_PlayStream random( @ElephantPoo1 @ElephantPoo2  ) random( @pitch = 60 @pitch = 70  ) vol = 200
+  Obj_Playstream random( @ElephantPoo1 @ElephantPoo2  ) random( @pitch = 60 @pitch = 70  ) vol = 200
   Obj_WaitMove
   Die
 endscript
@@ -1657,51 +1662,51 @@ script Zoo_Elephant_Collision_Fast
   Obj_SetPathMinStopVel 5
   if GoalManager_GoalIsActive name = zoo_goal_trickspot3
     create_panel_block id = Elephant_Skitch Text = "30 Seconds" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
-    Wait 9 seconds
+    wait 9 seconds
     create_panel_block id = Elephant_Skitch Text = "20 Seconds" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
-    Wait 4 seconds
+    wait 4 seconds
     create_panel_block id = Elephant_Skitch Text = "15 Seconds" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
-    Wait 4 seconds
+    wait 4 seconds
     create_panel_block id = Elephant_Skitch Text = "10 Seconds" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
-    Wait 4 seconds
+    wait 4 seconds
     create_panel_block id = Elephant_Skitch Text = "5" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
     create_panel_block id = Elephant_Skitch Text = "4" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
     create_panel_block id = Elephant_Skitch Text = "3" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
     create_panel_block id = Elephant_Skitch Text = "2" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
     create_panel_block id = Elephant_Skitch Text = "1" style = panel_message_goal time = 1500
-    Wait 1 second
+    wait 1 second
     if ObjectExists id = Elephant_Skitch
       RunScriptOnScreenElement id = Elephant_Skitch kill_panel_message
     endif
@@ -1710,7 +1715,7 @@ script Zoo_Elephant_Collision_Fast
   endif
 endscript
 script Zoo_Seal
-  Wait random( @10 frames @20 frames @30 frames ) 
+  wait random( @10 frames @20 frames @30 frames ) 
   begin
     Obj_CycleAnim anim = Idle numcycles = random( @2 @3 @4 ) 
     Obj_CycleAnim anim = Bark
@@ -1729,22 +1734,32 @@ script Zoo_Seal_Swim
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Swim cycle
   begin
-    Obj_PlayStream random( @Sealbark @Sealbark3 @Sealhappy3 ) pitch = random( @80 @90 @100 ) 
-    
-    Wait random( @
-    0.125 seconds
-    @1.5 seconds
-    @1.75 seconds
-    @2 seconds
-     ) 
-    Obj_PlayStream random( @Sealbark4 @Sealhappy ) pitch = random( @80 @85 @90 @95 @100 ) 
-    
-    Wait random( @
-    0.125 seconds
-    @1.5 seconds
-    @1.75 seconds
-    @2 seconds
-     ) 
+    <pitch1> = random( @80 @90 @100 )
+    <pitch2> = random( @80 @90 @100 )
+    <pitch3> = random( @80 @90 @100 )
+    Obj_Playstream random(
+      @Sealbark pitch = <pitch1>
+      @Sealbark3 pitch = <pitch2>
+      @Sealhappy3 pitch = <pitch3>
+    )
+    wait random(
+      @0.125 seconds
+      @1.5 seconds
+      @1.75 seconds
+      @2 seconds
+    )
+    <pitch4> = random( @80 @85 @90 @95 @100 )
+    <pitch5> = random( @80 @85 @90 @95 @100 )
+    Obj_Playstream random(
+      @Sealbark4 pitch = <pitch4>
+      @Sealhappy pitch = <pitch5>
+    )
+    wait random(
+      @0.125 seconds
+      @1.5 seconds
+      @1.75 seconds
+      @2 seconds
+    )
   repeat
 endscript
 script Zoo_Giraffe_Walk
@@ -1756,11 +1771,11 @@ script Zoo_Giraffe_Walk
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Walk cycle
   begin
-    Wait random( @3 seconds @5 seconds @7 seconds ) 
+    wait random( @3 seconds @5 seconds @7 seconds ) 
     Obj_CycleAnim anim = WalkToIdle
     Obj_StopAlongPath
     Obj_PlayAnim anim = GroundEatFromIdle
-    Obj_PlayStream giraffe_rd
+    Obj_Playstream giraffe_rd
     Obj_WaitAnimFinished
     Obj_CycleAnim anim = GroundEat numcycles = random( @1 @2 @3 ) 
     Obj_CycleAnim anim = GroundEatToIdle
@@ -1786,7 +1801,7 @@ script Zoo_Hippo_Lovin_Close
       PauseSkaters
       PauseClock
       PlaySkaterCamAnim Skater = 0 name = CAM_HIPPO
-      Wait 25 frames
+      wait 25 frames
       Create name = Zoo_TelescopeCover
       begin
         if SkaterCamAnimFinished name = CAM_HIPPO
@@ -1794,7 +1809,7 @@ script Zoo_Hippo_Lovin_Close
           UnPauseSkaters
           break
         endif
-        Wait 2 frames
+        wait 2 frames
       repeat
       Kill name = Zoo_TelescopeCover
     endif
@@ -1808,28 +1823,28 @@ script Zoo_Hippo_Noisy
   begin
     Obj_MoveToRelPos (0, -20, 0) speed = random( @1 @2  ) acceleration = 2
     Obj_WaitMove
-    Wait random( @30 frames @60 frames @90 frames ) 
+    wait random( @30 frames @60 frames @90 frames ) 
     Obj_MoveToRelPos (0, 20, 0) speed = random( @1 @2  ) acceleration = 1
     Obj_WaitMove
-    Wait random( @150 frames @180 frames @210 frames ) 
+    wait random( @150 frames @180 frames @210 frames ) 
     Obj_PlayAnim anim = Roar
-    Obj_PlaySound Hippo1 pitch = random( @80 @85 @90 ) 
+    Obj_Playsound Hippo1 pitch = random( @80 @85 @90 ) 
     Obj_WaitAnimFinished
     Obj_PlayAnim anim = SwimIdle cycle
   repeat
 endscript
 script Zoo_Hippo2
-  Wait 20 frames
+  wait 20 frames
   Obj_PlayAnim anim = SwimIdle cycle
   begin
     Obj_MoveToRelPos (0, -20, 0) speed = random( @1 @2  ) acceleration = 2
     Obj_WaitMove
     Obj_CycleAnim anim = Roar numcycles = 1
     Obj_PlayAnim anim = SwimIdle cycle
-    Wait random( @45 frames @75 frames @105 frames ) 
+    wait random( @45 frames @75 frames @105 frames ) 
     Obj_MoveToRelPos (0, 20, 0) speed = random( @1 @2  ) acceleration = 1
     Obj_WaitMove
-    Wait random( @105 frames @120 frames @135 frames ) 
+    wait random( @105 frames @120 frames @135 frames ) 
   repeat
 endscript
 script Zoo_Shark_Swim
@@ -1882,7 +1897,7 @@ script Zoo_GiantGator
   repeat
 endscript
 script Zoo_Monkey
-  Wait random( @10 frames @20 frames @30 frames ) 
+  wait random( @10 frames @20 frames @30 frames ) 
   begin
     Obj_CycleAnim anim = UpAndDown numcycles = random( @2 @3 @4 ) 
     Obj_CycleAnim anim = Idle numcycles = random( @1 @2 @3 ) 
@@ -1890,14 +1905,14 @@ script Zoo_Monkey
 endscript
 script Zoo_Monkey_Fling
   Obj_ShadowOff
-  Wait random( @10 frames @20 frames @30 frames ) 
+  wait random( @10 frames @20 frames @30 frames ) 
   begin
     Obj_CycleAnim anim = UpAndDown numcycles = random( @2 @3 @4 ) 
     Kill name = <poop>
     Obj_CycleAnim anim = Idle numcycles = random( @1 @2 @3 ) 
     Obj_PlayAnim anim = Fling
-    Wait 80 frames
-    Obj_PlayStream monkeypoo_splat1
+    wait 80 frames
+    Obj_Playstream monkeypoo_splat1
     Create name = <poop>
     Obj_WaitAnimFinished
   repeat
@@ -1936,8 +1951,8 @@ script Zoo_Monkey_Stop_Fling
     Obj_PathHeading off
     Obj_LookAtObject type = Skater time = 0.5
     Obj_PlayAnim anim = Fling
-    Wait 80 frames
-    Obj_PlayStream monkeypoo_splat1
+    wait 80 frames
+    Obj_Playstream monkeypoo_splat1
     Create name = <PoopNode>
     Obj_WaitAnimFinished
     Obj_PathHeading On
@@ -2021,7 +2036,7 @@ endscript
 script Zoo_Penguin_Fall
   Obj_ClearExceptions
   if GoalManager_SetGoalFlag name = Zoo_Goal_Collect <flag> 1
-    PlaySound GapSound vol = 100
+    Playsound GapSound vol = 100
     PlayStream HitPenguin vol = 65
     GoalManager_GetGoalParams name = Zoo_Goal_Collect
     if not GoalManager_AllFlagsSet name = Zoo_Goal_Collect
@@ -2087,11 +2102,11 @@ script Zoo_Gorilla_Walk
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Walk cycle
   begin
-    Wait random( @3 seconds @5 seconds @7 seconds ) 
+    wait random( @3 seconds @5 seconds @7 seconds ) 
     Obj_CycleAnim anim = WalkToIdle
     Obj_StopAlongPath
     Obj_PlayAnim anim = Roar
-    Obj_PlayStream Gorilla vol = 300 dropoff = 150
+    Obj_Playstream Gorilla vol = 300 dropoff = 150
     Obj_WaitAnimFinished
     Obj_StartAlongPath
     Obj_CycleAnim anim = WalkFromIdle
@@ -2108,11 +2123,11 @@ script Zoo_Gorilla_Walk_Big
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Walk cycle
   begin
-    Wait random( @3 seconds @5 seconds @7 seconds ) 
+    wait random( @3 seconds @5 seconds @7 seconds ) 
     Obj_CycleAnim anim = WalkToIdle
     Obj_StopAlongPath
     Obj_PlayAnim anim = Roar
-    Obj_PlayStream Gorilla vol = 300 dropoff = 150
+    Obj_Playstream Gorilla vol = 300 dropoff = 150
     Obj_WaitAnimFinished
     Obj_StartAlongPath
     Obj_CycleAnim anim = WalkFromIdle
@@ -2127,18 +2142,18 @@ script Zoo_Gorilla
     Obj_CycleAnim anim = SitToIdle numcycles = 1
     Obj_CycleAnim anim = Idle numcycles = 1
     Obj_PlayAnim anim = Roar
-    Obj_PlayStream Gorilla vol = 300 dropoff = 150
+    Obj_Playstream Gorilla vol = 300 dropoff = 150
     Obj_WaitAnimFinished
     Obj_CycleAnim anim = SitFromIdle numcycles = 1
   repeat
 endscript
 script Zoo_Gorilla_Catch_Left
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     if IsAlive name = TRG_GorillaCaught
     else
       if GoalManager_GoalIsActive name = Zoo_Goal_trickspot2
-        Wait 3 seconds
-        if TriggerType [ TRIGGER_LIP_ON ]
+        wait 3 seconds
+        if Triggertype [ TRIGGER_LIP_ON ]
           if IsAlive name = TRG_CatchGorillaPODLeft
             Goto Zoo_GorillaCaught
           endif
@@ -2146,12 +2161,12 @@ script Zoo_Gorilla_Catch_Left
           Kill name = Zoo_GorillaGrate01
           Kill prefix = "TRG_CatchGorilla"
           Create name = TRG_CatchGorillaPODRight
-          PlaySound LA_GratesOpen
-          Wait 45 frames
+          Playsound LA_GratesOpen
+          wait 45 frames
           PlaySkaterCamAnim Skater = 0 name = CAM_GORILLA
         else
           create_panel_block id = Gorilla_Switch Text = "Its a bit rusty.  Stay on longer!" style = panel_message_goal time = 1500
-          Wait 1 second
+          wait 1 second
           RunScriptOnScreenElement id = Gorilla_Switch kill_panel_message
         endif
       endif
@@ -2159,12 +2174,12 @@ script Zoo_Gorilla_Catch_Left
   endif
 endscript
 script Zoo_Gorilla_Catch_Right
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     if IsAlive name = TRG_GorillaCaught
     else
       if GoalManager_GoalIsActive name = Zoo_Goal_trickspot2
-        Wait 3 seconds
-        if TriggerType [ TRIGGER_LIP_ON ]
+        wait 3 seconds
+        if Triggertype [ TRIGGER_LIP_ON ]
           if IsAlive name = TRG_CatchGorillaPODRight
             Goto Zoo_GorillaCaught
           endif
@@ -2172,12 +2187,12 @@ script Zoo_Gorilla_Catch_Right
           Kill name = Zoo_GorillaGrate02
           Kill prefix = "TRG_CatchGorilla"
           Create name = TRG_CatchGorillaPODLeft
-          PlaySound LA_GratesOpen
-          Wait 45 frames
+          Playsound LA_GratesOpen
+          wait 45 frames
           PlaySkaterCamAnim Skater = 0 name = CAM_GORILLA
         else
           create_panel_block id = Gorilla_Switch Text = "Its a bit rusty.  Stay on longer!" style = panel_message_goal time = 1500
-          Wait 1 second
+          wait 1 second
           RunScriptOnScreenElement id = Gorilla_Switch kill_panel_message
         endif
       endif
@@ -2187,19 +2202,19 @@ endscript
 script Zoo_GorillaPOD
   Obj_ApplyScaling x = 1.5 y = 1.5 z = 1.5
   Obj_PlayAnim anim = Roar cycle
-  Obj_PlayStream Gorilla vol = 300 dropoff = 150
-  Wait 15 seconds
+  Obj_Playstream Gorilla vol = 300 dropoff = 150
+  wait 15 seconds
   Create prefix = "Zoo_GorillaGrate"
   Create name = TRG_CatchGorillaLoose
-  PlaySound LA_GratesOpen
+  Playsound LA_GratesOpen
   Die
 endscript
 script Zoo_GorillaCaught
   Create name = TRG_GorillaCaught
   Kill prefix = "Zoo_GorillaGrate"
   Kill prefix = "TRG_CatchGorilla"
-  PlaySound LA_GratesOpen
-  Wait 45 frames
+  Playsound LA_GratesOpen
+  wait 45 frames
   PlaySkaterCamAnim Skater = 0 name = CAM_GORILLA
   if GoalManager_SetGoalFlag name = Zoo_Goal_trickspot2 got_1 1
   endif
@@ -2219,10 +2234,10 @@ script Zoo_Lion_Outro
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Walk cycle
   begin
-    Wait 5 frames
+    wait 5 frames
     if Obj_IsMoving
     else
-      Printf "Come on Kill me"
+      printf "Come on Kill me"
       Die
     endif
   repeat
@@ -2256,7 +2271,7 @@ script Zoo_Lion_Walk
       Obj_CycleAnim anim = WalkToIdle
       Obj_PlayAnim anim = Idle cycle
     endif
-    Wait 1 second
+    wait 1 second
   repeat
 endscript
 script Zoo_Lion_Keep_Walking
@@ -2283,7 +2298,7 @@ script Zoo_Lion_Keep_Walking
       Obj_CycleAnim anim = WalkToIdle
       Obj_PlayAnim anim = Idle cycle
     endif
-    Wait 1 second
+    wait 1 second
   repeat
 endscript
 script Zoo_Lion_Eat
@@ -2292,13 +2307,13 @@ script Zoo_Lion_Eat
   Obj_SetException ex = SkaterOutOfRadius scr = Zoo_Lion_Walk params = <...>
   Create name = TRGP_LionKill
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script Zoo_KillSkater_Lions
   PlayStream HitLion
   DoFlash duration = 0.9 start_r = 180 start_g = 50 start_b = 50 start_a = 50 end_r = 90 end_g = 0 end_b = 0 end_a = 0
-  Sk3_Killskater { message1 = "Cat Food!"
+  sk3_killskater { message1 = "Cat Food!"
     message2 = "When Animals Attack!"
     message3 = "Nice Kitty!"
     message4 = "To The Lions!"
@@ -2307,7 +2322,7 @@ script Zoo_KillSkater_Lions
 endscript
 script Zoo_Meerkat
   Obj_ShadowOff
-  Wait random( @10 frames @20 frames @30 frames ) 
+  wait random( @10 frames @20 frames @30 frames ) 
   begin
     Obj_CycleAnim anim = UpIdle numcycles = random( @1 @2 @3 ) 
     Obj_CycleAnim anim = UpToDown
@@ -2319,17 +2334,17 @@ script Zoo_Elephant_Standing
   Obj_PlayAnim anim = Idle cycle
 endscript
 script Zoo_RhinoBonk
-  if TriggerType trigger_BONK
+  if Triggertype trigger_BONK
     StopStream HitRhino
     PlayStream HitRhino
   endif
 endscript
 script Zoo_Rhino_Standing
-  Wait random( @10 frames @20 frames @30 frames @40 frames ) 
+  wait random( @10 frames @20 frames @30 frames @40 frames ) 
   begin
     Obj_CycleAnim anim = Idle numcycles = random( @1 @2 ) 
     Obj_PlayAnim anim = Stomp
-    Obj_PlaySound rhino pitch = random( @80 @85 @90 ) 
+    Obj_Playsound rhino pitch = random( @80 @85 @90 ) 
     Obj_WaitAnimFinished
     Obj_CycleAnim anim = Stomp numcycles = random( @1 @2 ) 
   repeat
@@ -2350,7 +2365,7 @@ script Zoo_Rhino_Charging2
   Obj_CycleAnim anim = Impact
   Obj_WaitMove
   Obj_PlayAnim anim = Idle cycle
-  Wait 10 frames
+  wait 10 frames
   Obj_PlayAnim anim = Stomp cycle
 endscript
 script Zoo_RhinoDown
@@ -2367,7 +2382,7 @@ script Zoo_RhinoManager
     Create name = TRG_RhinoDown01
     Create name = RhinoDown01_Collsion
     Create name = TRG_RhinoStopCollision02
-    Wait 2 frames
+    wait 2 frames
     Kill name = TRG_RhinoCharging01
   repeat 1
   @
@@ -2375,7 +2390,7 @@ script Zoo_RhinoManager
     Create name = TRG_RhinoDown02
     Create name = RhinoDown02_Collsion
     Create name = TRG_RhinoStopCollision01
-    Wait 2 frames
+    wait 2 frames
     Kill name = TRG_RhinoCharging02
   repeat 1
   @
@@ -2384,7 +2399,7 @@ script Zoo_RhinoManager
     Create name = RhinoDown01_Collsion
     Create name = TRG_RhinoDown02
     Create name = RhinoDown02_Collsion
-    Wait 2 frames
+    wait 2 frames
     Kill name = TRG_RhinoCharging01
     Kill name = TRG_RhinoCharging02
   repeat 1
@@ -2461,7 +2476,7 @@ script Zoo_Kenny_Fall
   Obj_SetException ex = SkaterOutOfRadius scr = Zoo_Kenny
   Obj_SetOuterRadius 20
   Obj_PlayAnim anim = Ped_M_FalldownA
-  PlaySound bail04
+  Playsound bail04
 endscript
 script Zoo_Kenny_Run
   Obj_ClearExceptions
@@ -2478,15 +2493,15 @@ script Zoo_Kenny_Run
   Obj_SetPathMinStopVel 5
   Obj_PlayAnim anim = Ped_ZM_Run cycle
   begin
-    Wait random( @4 seconds @6 seconds @8 seconds ) 
-    Obj_PlayStream random( @kenny_run01 @kenny_run02 ) 
+    wait random( @4 seconds @6 seconds @8 seconds ) 
+    Obj_Playstream random( @kenny_run01 @kenny_run02 ) 
   repeat
 endscript
 script Zoo_Kenny_Run_Fall
   Obj_ClearExceptions
   Obj_SetException ex = SkaterOutOfRadius scr = Zoo_Kenny_Getup
   Obj_SetOuterRadius 10
-  PlaySound bail04
+  Playsound bail04
   Obj_StopAlongPath
   Obj_PlayAnim anim = Ped_M_FalldownA
 endscript
@@ -2498,59 +2513,59 @@ endscript
 script Zoo_Kenny_FinishGoal_Heelflip
   begin
     if Obj_ObjectInRect dist = 8 width = 8 height = 40 type = [ Skater ] offset = (0, 0, 0)
-      if Skater:AnimEquals [ heelflip ]
+      if Skater:animequals [ heelflip ]
         begin
           if Skater:InAir
           else
             if Skater:IsInBail
               break
             else
-              Wait 20 frames
+              wait 20 frames
               GoalManager_SetGoalFlag name = zoo_goal_trickspot got_2 1
-              Printf "Heel I think"
+              printf "Heel I think"
               break
             endif
           endif
-          Wait 1 frame
+          wait 1 frame
         repeat
       endif
     endif
-    Wait 2 frame
+    wait 2 frame
   repeat
 endscript
 script Zoo_Kenny_FinishGoal_Hardflip
   begin
     if Obj_ObjectInRect dist = 8 width = 8 height = 40 type = [ Skater ] offset = (0, 0, 0)
-      if Skater:AnimEquals [ hardflip ]
+      if Skater:animequals [ hardflip ]
         begin
           if Skater:InAir
           else
             if Skater:IsInBail
               break
             else
-              Wait 20 frames
+              wait 20 frames
               GoalManager_SetGoalFlag name = zoo_goal_trickspot got_2 1
-              Printf "Hard I think"
+              printf "Hard I think"
               break
             endif
           endif
-          Wait 1 frame
+          wait 1 frame
         repeat
       endif
     endif
-    Wait 2 frame
+    wait 2 frame
   repeat
 endscript
 script zoo_crap
   begin
-    Wait 10 seconds
+    wait 10 seconds
   repeat
 endscript
 script Zoo_Kenny_Gap
   if GoalManager_GoalIsActive name = zoo_goal_trickspot
     StartGap GapID = KennyHard flags = [ CANCEL_GROUND ] TrickText = "Hardflip" trickscript = zoo_goal_trickspot_got_Gap1Hard
     StartGap GapID = KennyHeel flags = [ CANCEL_GROUND ] TrickText = "Heelflip" trickscript = zoo_goal_trickspot_got_Gap1Heel
-    Wait 5 frames
+    wait 5 frames
     EndGap GapID = KennyHard
     EndGap GapID = KennyHeel
   endif
@@ -2608,7 +2623,7 @@ script zoo_goal_special_got_gap1
 endscript
 script Zoo_ElephantRockGap
   StartGap flags = CANCEL_GROUND trickscript = zoo_goal_gaps2_got_1
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Over Elephant Rock" score = 1000
 endscript
 script Zoo_BannerGap1
@@ -2617,7 +2632,7 @@ script Zoo_BannerGap1
   else
     StartGap flags = CANCEL_GROUND
   endif
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Banner Gap 1!" score = 100
 endscript
 script Zoo_BannerGap2
@@ -2626,7 +2641,7 @@ script Zoo_BannerGap2
   else
     StartGap flags = CANCEL_GROUND
   endif
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Banner Gap 2!" score = 100
 endscript
 script Zoo_BannerGap3
@@ -2635,7 +2650,7 @@ script Zoo_BannerGap3
   else
     StartGap flags = CANCEL_GROUND
   endif
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Banner Gap 3!" score = 100
 endscript
 script Zoo_BannerGap4
@@ -2644,7 +2659,7 @@ script Zoo_BannerGap4
   else
     StartGap flags = CANCEL_GROUND
   endif
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Banner Gap 4!" score = 100
 endscript
 script zoo_goal_gaps_got_1
@@ -2672,7 +2687,7 @@ endscript
 script Zoo_Goal_collect2_got_1
   if GoalManager_GoalIsActive name = zoo_goal_collect2
     if GoalManager_SetGoalFlag name = zoo_goal_collect2 got_1 1
-      PlaySound smashcake
+      Playsound smashcake
       Kill name = Pumpkin_01
     endif
   endif
@@ -2680,7 +2695,7 @@ endscript
 script Zoo_Goal_collect2_got_2
   if GoalManager_GoalIsActive name = zoo_goal_collect2
     if GoalManager_SetGoalFlag name = zoo_goal_collect2 got_2 1
-      PlaySound smashcake
+      Playsound smashcake
       Kill name = Pumpkin_02
     endif
   endif
@@ -2688,7 +2703,7 @@ endscript
 script Zoo_Goal_collect2_got_3
   if GoalManager_GoalIsActive name = zoo_goal_collect2
     if GoalManager_SetGoalFlag name = zoo_goal_collect2 got_3 1
-      PlaySound smashcake
+      Playsound smashcake
       Kill name = Pumpkin_03
     endif
   endif
@@ -2696,7 +2711,7 @@ endscript
 script Zoo_Goal_collect2_got_4
   if GoalManager_GoalIsActive name = zoo_goal_collect2
     if GoalManager_SetGoalFlag name = zoo_goal_collect2 got_4 1
-      PlaySound smashcake
+      Playsound smashcake
       Kill name = Pumpkin_04
     endif
   endif
@@ -2705,7 +2720,7 @@ script Zoo_LionLipGapStart
   StartGap GapID = LionLip flags = [ CANCEL_GROUND ]
 endscript
 script Zoo_LionLipGapEnd
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     EndGap GapID = LionLip Text = "Hold On! Lions Below" score = 500
   endif
 endscript
@@ -2715,17 +2730,17 @@ script Zoo_GapStart_Wave
   StartGap GapID = WaveHigh flags = [ CANCEL_GROUND ]
 endscript
 script Zoo_GapEnd_WaveLow
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     EndGap GapID = WaveLow Text = "Low Tide" score = 100
   endif
 endscript
 script Zoo_GapEnd_WaveMid
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     EndGap GapID = WaveMid Text = "Big Surf" score = 500
   endif
 endscript
 script Zoo_GapEnd_WaveHigh
-  if TriggerType [ TRIGGER_LIP_ON ]
+  if Triggertype [ TRIGGER_LIP_ON ]
     EndGap GapID = WaveHigh Text = "Tidal Wave" score = 1000
   endif
 endscript
@@ -2752,12 +2767,12 @@ script Zoo_Gap_HandrailHopEnd
 endscript
 script Zoo_Gap_Wave2Wave
   StartGap flags = [ PURE_AIR ]
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Wave 2 Wave" score = 100
 endscript
 script Zoo_Gap_BridgeTransfer
   StartGap flags = [ PURE_AIR ]
-  Wait 1 frame
+  wait 1 frame
   EndGap Text = "Bridge Transfer" score = 100
 endscript
 script Zoo_Gap_WelcomeToTheZoo
@@ -2863,7 +2878,7 @@ script Zoo_Gap_Gorilla
   EndGap Text = "You Big Gorilla!" score = 100
 endscript
 script Zoo_Gap_ElephantHop
-  if TriggerType trigger_BONK
+  if Triggertype trigger_BONK
     PlayStream HitElephant
   else
     if not GoalManager_HasActiveGoals
@@ -2932,7 +2947,7 @@ script Zoo_Goal_Counter_Deactivate
   MakeSkaterGoto Zoo_ProChallengeBob_MoveToRestart
 endscript
 script Zoo_BobChallenge1_Gaps1_1
-  Printf "Zoo_BobChallenge1_Gaps1_1"
+  printf "Zoo_BobChallenge1_Gaps1_1"
   EndGap GapID = BobChallenge0_2 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_2
   EndGap GapID = BobChallenge2_2
@@ -2946,7 +2961,7 @@ script Zoo_BobChallenge1_Gaps1_1
   StartGap GapID = BobChallenge3_1 flags = [ REQUIRE_GROUND ] TrickText = <TrickText> trickscript = Zoo_ProChallengeBob_GotTRICK3
 endscript
 script Zoo_BobChallenge1_Gaps1_2
-  Printf "Zoo_BobChallenge1_Gaps1_2"
+  printf "Zoo_BobChallenge1_Gaps1_2"
   EndGap GapID = BobChallenge0_1 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_1
   EndGap GapID = BobChallenge2_1
@@ -2960,7 +2975,7 @@ script Zoo_BobChallenge1_Gaps1_2
   StartGap GapID = BobChallenge3_2 flags = [ REQUIRE_GROUND ] TrickText = <TrickText> trickscript = Zoo_ProChallengeBob_GotTRICK3
 endscript
 script Zoo_BobChallenge2_Gaps1_1
-  Printf "Zoo_BobChallenge2_Gaps1_1"
+  printf "Zoo_BobChallenge2_Gaps1_1"
   EndGap GapID = BobChallenge0_2 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_2
   EndGap GapID = BobChallenge2_2
@@ -2974,7 +2989,7 @@ script Zoo_BobChallenge2_Gaps1_1
   StartGap GapID = BobChallenge3_1 TrickText = <TrickText> trickscript = Zoo_ProChallengeBob_GotTRICK3
 endscript
 script Zoo_BobChallenge2_Gaps1_2
-  Printf "Zoo_BobChallenge2_Gaps1_2"
+  printf "Zoo_BobChallenge2_Gaps1_2"
   EndGap GapID = BobChallenge0_1 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_1
   EndGap GapID = BobChallenge2_1
@@ -2988,7 +3003,7 @@ script Zoo_BobChallenge2_Gaps1_2
   StartGap GapID = BobChallenge3_2 TrickText = <TrickText> trickscript = Zoo_ProChallengeBob_GotTRICK3
 endscript
 script Zoo_BobChallenge3_Gaps1_1
-  Printf "Zoo_BobChallenge3_Gaps1_1"
+  printf "Zoo_BobChallenge3_Gaps1_1"
   EndGap GapID = BobChallenge0_2 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_2
   EndGap GapID = BobChallenge2_2
@@ -2999,7 +3014,7 @@ script Zoo_BobChallenge3_Gaps1_1
   StartGap GapID = BobChallenge3_1 TrickText = "Sit Down Air" trickscript = Zoo_ProChallengeBob_GotTRICK3
 endscript
 script Zoo_BobChallenge3_Gaps1_2
-  Printf "Zoo_BobChallenge3_Gaps1_2"
+  printf "Zoo_BobChallenge3_Gaps1_2"
   EndGap GapID = BobChallenge0_1 Text = "Loop Hole" score = 500
   EndGap GapID = BobChallenge1_1
   EndGap GapID = BobChallenge2_1
@@ -3014,18 +3029,18 @@ script Zoo_ProChallengeBob_GotTRICK1
   Kill name = TRG_SkaterBailed
   begin
     if IsAlive name = TRG_SkaterBailed
-      Printf "skaterbailed"
+      printf "skaterbailed"
       break
     endif
     if IsAlive name = TRG_SkaterLanded
-      Printf "skaterlanded"
+      printf "skaterlanded"
       StartGap GapID = ProChallengeBob_TRICK1
       EndGap GapID = ProChallengeBob_TRICK1 Text = "Bob's Pro Challenge TRICK 1" score = 500
       SendFlag name = TRG_G_COUNTER_Loop_ChallengeObj OBJFLAG_BOB_PROCHALLENGE_TRICK1
       break
     endif
-    Wait 2 frames
-    Printf "waiting..."
+    wait 2 frames
+    printf "waiting..."
   repeat
   Kill name = TRG_SkaterLanded
   Kill name = TRG_SkaterBailed
@@ -3035,18 +3050,18 @@ script Zoo_ProChallengeBob_GotTRICK2
   Kill name = TRG_SkaterBailed
   begin
     if IsAlive name = TRG_SkaterBailed
-      Printf "skaterbailed"
+      printf "skaterbailed"
       break
     endif
     if IsAlive name = TRG_SkaterLanded
-      Printf "skaterlanded"
+      printf "skaterlanded"
       StartGap GapID = ProChallengeBob_TRICK1
       EndGap GapID = ProChallengeBob_TRICK1 Text = "Bob's Pro Challenge TRICK 2" score = 500
       SendFlag name = TRG_G_COUNTER_Loop_ChallengeObj OBJFLAG_BOB_PROCHALLENGE_TRICK2
       break
     endif
-    Wait 2 frames
-    Printf "waiting..."
+    wait 2 frames
+    printf "waiting..."
   repeat
   Kill name = TRG_SkaterLanded
   Kill name = TRG_SkaterBailed
@@ -3056,18 +3071,18 @@ script Zoo_ProChallengeBob_GotTRICK3
   Kill name = TRG_SkaterBailed
   begin
     if IsAlive name = TRG_SkaterBailed
-      Printf "skaterbailed"
+      printf "skaterbailed"
       break
     endif
     if IsAlive name = TRG_SkaterLanded
-      Printf "skaterlanded"
+      printf "skaterlanded"
       StartGap GapID = ProChallengeBob_TRICK1
       EndGap GapID = ProChallengeBob_TRICK1 Text = "Bob's Pro Challenge TRICK 3" score = 500
       SendFlag name = TRG_G_COUNTER_Loop_ChallengeObj OBJFLAG_BOB_PROCHALLENGE_TRICK3
       break
     endif
-    Wait 2 frames
-    Printf "waiting..."
+    wait 2 frames
+    printf "waiting..."
   repeat
   Kill name = TRG_SkaterLanded
   Kill name = TRG_SkaterBailed
@@ -3080,7 +3095,7 @@ script Zoo_BobChallengeManager
         GoalManager_GotCounterObject name = zoo_goal_counter
         Obj_ClearFlag OBJFLAG_BOB_PROCHALLENGE_TRICK1
         Obj_SetFlag OBJFLAG_BOB_PROCHALLENGE_TRICK1_DONE
-        Printf "Got trick1"
+        printf "Got trick1"
       endif
     endif
     if not Obj_FlagSet OBJFLAG_BOB_PROCHALLENGE_TRICK2_DONE
@@ -3088,7 +3103,7 @@ script Zoo_BobChallengeManager
         GoalManager_GotCounterObject name = zoo_goal_counter
         Obj_ClearFlag OBJFLAG_BOB_PROCHALLENGE_TRICK2
         Obj_SetFlag OBJFLAG_BOB_PROCHALLENGE_TRICK2_DONE
-        Printf "Got trick2"
+        printf "Got trick2"
       endif
     endif
     if not Obj_FlagSet OBJFLAG_BOB_PROCHALLENGE_TRICK3_DONE
@@ -3096,7 +3111,7 @@ script Zoo_BobChallengeManager
         GoalManager_GotCounterObject name = zoo_goal_counter
         Obj_ClearFlag OBJFLAG_BOB_PROCHALLENGE_TRICK3
         Obj_SetFlag OBJFLAG_BOB_PROCHALLENGE_TRICK3_DONE
-        Printf "Got trick3"
+        printf "Got trick3"
       endif
     endif
     if Obj_FlagSet OBJFLAG_BOB_PROCHALLENGE_TRICK1_DONE
@@ -3121,7 +3136,7 @@ script Zoo_BobChallengeManager
                 UnPauseSkaters
                 break
               endif
-              Wait 1 gameframe
+              wait 1 gameframe
             repeat
             MakeSkaterGoto Zoo_ProChallengeBob_MoveToRestart
             Create prefix = "BobChallenge2_"
@@ -3148,7 +3163,7 @@ script Zoo_BobChallengeManager
                 UnPauseSkaters
                 break
               endif
-              Wait 1 gameframe
+              wait 1 gameframe
             repeat
             MakeSkaterGoto Zoo_ProChallengeBob_MoveToRestart
             Create prefix = "BobChallenge3_"
@@ -3157,7 +3172,7 @@ script Zoo_BobChallengeManager
         endif
       endif
     endif
-    Wait 1 frame
+    wait 1 frame
   repeat
 endscript
 script Zoo_ProChallengeBob_MoveToRestart
@@ -3208,11 +3223,11 @@ script Zoo_MG_EggdropClose
   if GoalManager_HasActiveGoals
     GoalManager_DeactivateAllGoals
   endif
-  Wait 1 frame
+  wait 1 frame
   GoalManager_ActivateGoal name = zoo_goal_minigame_generic
 endscript
 script Zoo_MG_EndGame
-  GoalManager_DeactivateGoal name = zoo_goal_minigame_generic
+  GoalManager_DeActivateGoal name = zoo_goal_minigame_generic
 endscript
 script Zoo_MG_EggdropDecline
   UnPauseSkaters
@@ -3226,10 +3241,10 @@ script zoo_eggdrop_deactivate
   UnPauseSkaters
   speech_box_exit
   MakeSkaterGoto SkaterInit
-  Wait 3 frame
+  wait 3 frame
   PlaySkaterCamAnim Skater = 0 stop
   Skater:SetRollingFriction 1
-  Skater:EnablePlayerInput
+  Skater:Enableplayerinput
 endscript
 KABOOM_SUCCESS = 13
 KABOOM_GOT_EGG = 14
@@ -3249,12 +3264,12 @@ script Zoo_MG_KaboomClose
       MakeSkaterGoto Kaboom_OnGround
       break
     endif
-    Wait 1 frame
+    wait 1 frame
   repeat
 endscript
 script Kaboom_OnGround_Pad_Choose
   speech_box_exit
-  Printf "X Pressed"
+  printf "X Pressed"
   if not IsAlive name = TRG_Kaboom_EggCreator
     Create name = TRG_Kaboom_EggCreator
   endif
@@ -3272,9 +3287,9 @@ script Kaboom_OnGround
   ClearEventBuffer
   SetRollingFriction 1000
   Obj_MoveToNode name = TRG_MG_KaboomNav01 orient
-  DisablePlayerInput
-  Wait 30 frames
-  UnSetFlag flag = KABOOM_GOT_EGG
+  Disableplayerinput
+  wait 30 frames
+  UnsetFlag flag = KABOOM_GOT_EGG
    <Boundary> = 0
   begin
     if Held Left
@@ -3282,7 +3297,7 @@ script Kaboom_OnGround
       else
         PlayAnim anim = Ped_Egg_Run
         Move x = 10
-        Printf "Left Pressed"
+        printf "Left Pressed"
          <Boundary> = ( <Boundary> + 1 )
       endif
     endif
@@ -3291,11 +3306,11 @@ script Kaboom_OnGround
       else
         PlayAnim anim = Ped_Egg_Run
         Move x = -10
-        Printf "Right Pressed"
+        printf "Right Pressed"
          <Boundary> = ( <Boundary> - 1 )
       endif
     endif
-    if IsXBOX
+    if IsXbox
       if Held Circle
         Kill name = TRG_Kaboom_EggCreator
         Kill prefix = "TRG_EggLayer"
@@ -3333,19 +3348,19 @@ script Kaboom_OnGround
       Kill name = TRG_Kaboom_EggCreator
       Kill prefix = "TRG_EggLayer"
       Create prefix = "TRG_Bird"
-      UnSetFlag flag = KABOOM_SUCCESS
-      PlaySound GoalDone
+      UnsetFlag flag = KABOOM_SUCCESS
+      Playsound GoalDone
       Kill prefix = "TRG_Egg"
-      Printf "Success!"
+      printf "Success!"
       GoalManager_AwardMinigameCash name = zoo_goal_minigame_generic 500
       SpawnScript Zoo_MG_EndGame
       break
     endif
     if GetFlag flag = KABOOM_GOT_EGG
-      UnSetFlag flag = KABOOM_GOT_EGG
+      UnsetFlag flag = KABOOM_GOT_EGG
       PlayAnim anim = Ped_CatchEgg
     endif
-    Wait 1 frame
+    wait 1 frame
     if AnimFinished
       PlayAnim anim = Ped_Egg_Idle cycle
     endif
@@ -3361,20 +3376,20 @@ script Kaboom_Make_Eggs
         endif
       endif
     endif
-    if Obj_VarEQ var = 0 value = 0
-      Wait 90 frames
+    if Obj_VarEq var = 0 value = 0
+      wait 90 frames
     endif
-    if Obj_VarEQ var = 0 value = 1
-      Wait 75 frames
+    if Obj_VarEq var = 0 value = 1
+      wait 75 frames
     endif
-    if Obj_VarEQ var = 0 value = 2
-      Wait 55 frames
+    if Obj_VarEq var = 0 value = 2
+      wait 55 frames
     endif
-    if Obj_VarEQ var = 0 value = 3
-      Wait 40 frames
+    if Obj_VarEq var = 0 value = 3
+      wait 40 frames
     endif
     if Obj_VarGE var = 0 value = 4
-      Wait 30 frames
+      wait 30 frames
     endif
     if not IsAlive name = TRG_Egg04
       if not IsAlive name = TRG_Egg05
@@ -3383,25 +3398,25 @@ script Kaboom_Make_Eggs
         endif
       endif
     endif
-    if Obj_VarEQ var = 0 value = 0
-      Wait 90 frames
+    if Obj_VarEq var = 0 value = 0
+      wait 90 frames
     endif
-    if Obj_VarEQ var = 0 value = 1
-      Wait 75 frames
+    if Obj_VarEq var = 0 value = 1
+      wait 75 frames
     endif
-    if Obj_VarEQ var = 0 value = 2
-      Wait 55 frames
+    if Obj_VarEq var = 0 value = 2
+      wait 55 frames
     endif
-    if Obj_VarEQ var = 0 value = 3
-      Wait 40 frames
+    if Obj_VarEq var = 0 value = 3
+      wait 40 frames
     endif
     if Obj_VarGE var = 0 value = 4
-      Wait 30 frames
+      wait 30 frames
     endif
-    if Obj_VarEQ var = 0 value = 4
-      Wait 30 frames
+    if Obj_VarEq var = 0 value = 4
+      wait 30 frames
       SetFlag flag = KABOOM_SUCCESS
-      Printf "You got 10 eggs fucker"
+      printf "You got 10 eggs fucker"
     endif
     Obj_VarInc var = 0
   repeat
@@ -3423,16 +3438,16 @@ script Kaboom_Egg_Dropped
   if not IsAlive name = TRG_Bird01
     Create prefix = "TRG_Bird"
   endif
-  Printf "Kill the eggs bitches!"
+  printf "Kill the eggs bitches!"
   create_panel_message id = goal_message Text = "You Dropped an Egg!" style = panel_message_generic_loss
-  Wait 5 frames
+  wait 5 frames
   if not IsAlive name = TRG_MG_Kaboom
     Create name = TRG_MG_Kaboom
   endif
   SpawnScript Zoo_MG_EndGame
 endscript
 script Kaboom_Egg_Caught
-  Obj_PlaySound GapSound
+  Obj_Playsound GapSound
   SetFlag flag = KABOOM_GOT_EGG
   Die
 endscript
@@ -3468,11 +3483,11 @@ script Zoo_MG_RhinoBetClose
   if GoalManager_HasActiveGoals
     GoalManager_DeactivateAllGoals
   endif
-  Wait 1 frame
+  wait 1 frame
   GoalManager_ActivateGoal name = zoo_goal_minigame_generic2
 endscript
 script Zoo_MG2_EndGame
-  GoalManager_DeactivateGoal name = zoo_goal_minigame_generic2
+  GoalManager_DeActivateGoal name = zoo_goal_minigame_generic2
 endscript
 script Zoo_MG_RhinoBetDecline
   UnPauseSkaters
@@ -3486,10 +3501,10 @@ script zoo_rhinobet_deactivate
   UnPauseSkaters
   speech_box_exit
   MakeSkaterGoto SkaterInit
-  Wait 3 frame
+  wait 3 frame
   PlaySkaterCamAnim Skater = 0 stop
   Skater:SetRollingFriction 1
-  Skater:EnablePlayerInput
+  Skater:Enableplayerinput
 endscript
 script Zoo_Rhino_Keeper_New
   Obj_PlayAnim anim = Ped_M_Idle1 cycle
@@ -3549,7 +3564,7 @@ script Zoo_Bet_Left
   Create prefix = "TRG_RhinoCharging"
   Kill prefix = "RhinoStartCollision"
   speech_box_exit
-  Wait 5 seconds
+  wait 5 seconds
   MakeSkaterGoto SkaterInit
   if IsAlive name = TRG_RhinoDown01
     if IsAlive name = TRG_RhinoDown02
@@ -3566,7 +3581,7 @@ script Zoo_Bet_Left
   endif
   PlaySkaterCamAnim Skater = 0 stop
   UnPauseSkaters
-  Wait 1.5 seconds
+  wait 1.5 seconds
   if ObjectExists id = Rhino_Bet
     RunScriptOnScreenElement id = Rhino_Bet kill_panel_message
   endif
@@ -3577,7 +3592,7 @@ script Zoo_Bet_Both
   Create prefix = "TRG_RhinoCharging"
   Kill prefix = "RhinoStartCollision"
   speech_box_exit
-  Wait 5 seconds
+  wait 5 seconds
   MakeSkaterGoto SkaterInit
   if IsAlive name = TRG_RhinoDown01
     if IsAlive name = TRG_RhinoDown02
@@ -3594,7 +3609,7 @@ script Zoo_Bet_Both
   endif
   PlaySkaterCamAnim Skater = 0 stop
   UnPauseSkaters
-  Wait 1.5 seconds
+  wait 1.5 seconds
   if ObjectExists id = Rhino_Bet
     RunScriptOnScreenElement id = Rhino_Bet kill_panel_message
   endif
@@ -3605,7 +3620,7 @@ script Zoo_Bet_Right
   Create prefix = "TRG_RhinoCharging"
   Kill prefix = "RhinoStartCollision"
   speech_box_exit
-  Wait 5 seconds
+  wait 5 seconds
   MakeSkaterGoto SkaterInit
   if IsAlive name = TRG_RhinoDown02
     if IsAlive name = TRG_RhinoDown01
@@ -3622,7 +3637,7 @@ script Zoo_Bet_Right
   endif
   PlaySkaterCamAnim Skater = 0 stop
   UnPauseSkaters
-  Wait 1.5 seconds
+  wait 1.5 seconds
   if ObjectExists id = Rhino_Bet
     RunScriptOnScreenElement id = Rhino_Bet kill_panel_message
   endif
@@ -3633,7 +3648,7 @@ script Zoo_Bet_X
   Create prefix = "TRG_RhinoCharging"
   Kill prefix = "RhinoStartCollision"
   speech_box_exit
-  Wait 2 seconds
+  wait 2 seconds
   UnPauseSkaters
   MakeSkaterGoto SkaterInit
   PlaySkaterCamAnim Skater = 0 stop
@@ -3668,11 +3683,11 @@ script Zoo_MG_MonkeyPooClose
   if GoalManager_HasActiveGoals
     GoalManager_DeactivateAllGoals
   endif
-  Wait 1 frame
+  wait 1 frame
   GoalManager_ActivateGoal name = zoo_goal_minigame_generic3
 endscript
 script Zoo_MG_EndGame_Poo
-  GoalManager_DeactivateGoal name = zoo_goal_minigame_generic3
+  GoalManager_DeActivateGoal name = zoo_goal_minigame_generic3
 endscript
 script Zoo_MG_MonkeyPooDecline
   UnPauseSkaters
@@ -3686,22 +3701,22 @@ script zoo_MonkeyPoo_deactivate
   UnPauseSkaters
   speech_box_exit
   MakeSkaterGoto SkaterInit
-  Wait 3 frame
+  wait 3 frame
   PlaySkaterCamAnim Skater = 0 stop
   Skater:SetRollingFriction 1
-  Skater:EnablePlayerInput
+  Skater:Enableplayerinput
 endscript
 script Zoo_MG_Invaders
   if IsCareerMode
     Kill name = Zoo_Poo_Wall
-    PlaySound LA_GratesOpen
+    Playsound LA_GratesOpen
     GoalManager_DeactivateAllGoals
     MakeSkaterGoto Zoo_Invaders_OnGround
   endif
 endscript
 script MonkeyPoo_OnGround_Pad_Choose
   speech_box_exit
-  Printf "X Pressed"
+  printf "X Pressed"
   if IsAlive name = TRG_Poop_Controller
   else
     Create name = TRG_Poop_Controller
@@ -3720,22 +3735,22 @@ script Zoo_Invaders_OnGround
   SetRollingFriction 1000
   Kill name = Zoo_Poo_Wall
   Obj_MoveToNode name = TRG_MG_InvadersNav01 orient
-  DisablePlayerInput
-  Wait 30 frames
+  Disableplayerinput
+  wait 30 frames
    <Boundary> = 0
   begin
     if Held Up
-      Printf "Up Pressed"
+      printf "Up Pressed"
     endif
     if Held Down
-      Printf "Down Pressed"
+      printf "Down Pressed"
     endif
     if Held Left
       if ( <Boundary> > 13 )
       else
         PlayAnim anim = Ped_Egg_Run
         Move x = 10
-        Printf "Left Pressed"
+        printf "Left Pressed"
          <Boundary> = ( <Boundary> + 1 )
       endif
     endif
@@ -3744,16 +3759,16 @@ script Zoo_Invaders_OnGround
       else
         PlayAnim anim = Ped_Egg_Run
         Move x = -10
-        Printf "Right Pressed"
+        printf "Right Pressed"
          <Boundary> = ( <Boundary> - 1 )
       endif
     endif
-    if IsXBOX
+    if IsXbox
       if Held Circle
         Kill prefix = "TRG_Invader_"
         Kill name = TRG_Poop_Controller
         Create name = Zoo_Poo_Wall
-        PlaySound LA_GratesOpen
+        Playsound LA_GratesOpen
         SpawnScript Zoo_MG_EndGame_Poo
         break
       endif
@@ -3763,7 +3778,7 @@ script Zoo_Invaders_OnGround
           Kill prefix = "TRG_Invader_"
           Kill name = TRG_Poop_Controller
           Create name = Zoo_Poo_Wall
-          PlaySound LA_GratesOpen
+          Playsound LA_GratesOpen
           SpawnScript Zoo_MG_EndGame_Poo
           break
         endif
@@ -3772,13 +3787,13 @@ script Zoo_Invaders_OnGround
           Kill prefix = "TRG_Invader_"
           Kill name = TRG_Poop_Controller
           Create name = Zoo_Poo_Wall
-          PlaySound LA_GratesOpen
+          Playsound LA_GratesOpen
           SpawnScript Zoo_MG_EndGame_Poo
           break
         endif
       endif
     endif
-    Wait 1 frame
+    wait 1 frame
     if AnimFinished
       PlayAnim anim = Ped_Egg_Idle cycle
     endif
@@ -3800,7 +3815,7 @@ script Zoo_Monkey_Invader
 endscript
 script Zoo_Poop_Controller
   begin
-    Wait 1 second
+    wait 1 second
     if GoalManager_HasActiveGoals
       Kill prefix = "TRG_Invader_"
       Create name = Zoo_Poo_Wall
@@ -3819,15 +3834,15 @@ script Zoo_Poopie
   Die
 endscript
 script Zoo_Poopie_Close
-  Obj_PlaySound GapSound
-  Printf "Huh"
+  Obj_Playsound GapSound
+  printf "Huh"
   MakeSkaterGoto Zoo_Poopie_Hit
   Die
 endscript
 script Zoo_Poopie_Hit
-  Printf "Die Fucker"
+  printf "Die Fucker"
   Create name = Zoo_Poo_Wall
-  PlaySound LA_GratesOpen
+  Playsound LA_GratesOpen
   Kill name = TRG_Poop_Controller
   Kill prefix = "TRG_Invader"
   create_panel_message id = goal_message Text = "You Got Poop On You!" style = panel_message_generic_loss
@@ -3838,8 +3853,8 @@ script Zoo_Poopie_Success
   Kill prefix = "TRG_Poopie"
   Kill prefix = "TRG_Invader"
   Create name = Zoo_Poo_Wall
-  PlaySound LA_GratesOpen
-  PlaySound GoalDone
+  Playsound LA_GratesOpen
+  Playsound GoalDone
   GoalManager_AwardMinigameCash name = zoo_goal_minigame_generic3 500
   SpawnScript Zoo_MG_EndGame_Poo
 endscript
