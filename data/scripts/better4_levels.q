@@ -32,7 +32,7 @@ LevelNum_Chopper = 33
 
 // THPS3
 LevelNum_Foundry = 34
-LevelNum_Canada = 35
+LevelNum_Can = 35
 LevelNum_Rio = 16
 LevelNum_Suburbia = 36
 LevelNum_AP = 14
@@ -41,8 +41,7 @@ LevelNum_LA = 12
 LevelNum_Tokyo = 38
 LevelNum_CruiseShip = 39
 
-level_info_defaults = { points_to_unlock = 0 num_am_goals = 0 num_goals = 0 flag = LEVEL_UNLOCKED_SCH }
-level_info_defaults_nosign = { points_to_unlock = 0 num_am_goals = 0 num_goals = 0 flag = LEVEL_UNLOCKED_SCH taxi_tex = "textures\better4\cab_test" off_duty }
+level_info_defaults = { points_to_unlock = 0 num_am_goals = 0 num_goals = 0 flag = LEVEL_UNLOCKED_SCH taxi_id = Cab_sign_11_Locked }
 
 thps_level_info = [
   { text = "Warehouse" level_num = LevelNum_Ware level = Load_Ware level_info_defaults taxi_tex = "images\better4\taxi_signs\thps1\ware" }
@@ -71,7 +70,7 @@ thps2_level_info = [
 
 thps3_level_info = [
   { text = "Foundry" not_focusable level_num = LevelNum_Foundry level = Load_Foundry level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\foundry" }
-  { text = "Canada" not_focusable level_num = LevelNum_Canada level = Load_Canada level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\can" }
+  { text = "Canada" level_num = LevelNum_Can level = Load_Can level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\can" }
   { text = "Rio" under_construction level_num = LevelNum_Rio level = Load_Rio level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\rio" }
   { text = "Suburbia" not_focusable level_num = LevelNum_Suburbia level = Load_Suburbia level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\sub" }
   { text = "Airport" under_construction level_num = LevelNum_AP level = Load_AP level_info_defaults taxi_tex = "images\better4\taxi_signs\thps3\ap" }
@@ -251,6 +250,46 @@ level_ny = {
 
 // THPS3
 
+script Load_Can
+  load_level level_Can
+endscript
+
+level_Can = {
+  structure_name = level_Can
+  load_script = Load_Can
+  name = "Canada"
+  level = "Can"
+  qb = "levels\better4\Can\Can.qb"
+ // level_qb = "levels\better4\Can\Can_scripts.qb"
+  sky = "Can_Sky"
+  ambient_track = "music\amb_alc"
+  loading_screen = "better4\loadscrn_Can"
+  startup_script = Can_Startup
+  goals_script = Can_goals
+  setup_script = Can_setup
+  level_number = LevelNum_Can
+  temp_script = load_cameras_and_terrains
+  // extranetanimsscript = load_level_anims
+  loading_time = 1
+  default_stats = 10
+  ambient_red = 69
+  ambient_green = 72
+  ambient_blue = 79
+  ambient_mod_factor = 0.3
+  heading_0 = 150.0
+  pitch_0 = -127.0
+  red_0 = 167
+  green_0 = 175
+  blue_0 = 197
+  mod_factor_0 = 1.4
+  heading_1 = -50.0
+  pitch_1 = -117.0
+  red_1 = 55
+  green_1 = 58
+  blue_1 = 61
+  mod_factor_1 = 0.2
+}
+
 script Load_Rio
   load_level level_Rio
 endscript
@@ -264,7 +303,7 @@ level_Rio = {
  // level_qb = "levels\better4\Rio\Rio_scripts.qb"
   sky = "Rio_Sky"
   ambient_track = "music\amb_alc"
-  loading_screen = "better4\loadscrn_Rio"
+  loading_screen = "loadscrn_generic"
   startup_script = Rio_Startup
   goals_script = Rio_goals
   setup_script = Rio_setup
