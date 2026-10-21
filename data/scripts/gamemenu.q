@@ -326,8 +326,10 @@ script make_new_menu { menu_title = "Paused"
       not_focusable
     }
   endswitch
-  AssignAlias id = <menu_id> alias = current_menu_anchor
-  AssignAlias id = <vmenu_id> alias = current_menu
+  if not GotParam no_alias
+    AssignAlias id = <menu_id> alias = current_menu_anchor
+    AssignAlias id = <vmenu_id> alias = current_menu
+  endif
   if GotParam helper_text
     create_helper_text <helper_text>
   endif
@@ -695,15 +697,15 @@ script create_pause_menu
     else
       if IsVoluntaryObserving
         if not GoalManager_HasActiveGoals
-          make_text_sub_menu_item text = "Quit Observing" id = quit_observe_temp pad_choose_script = QuitBetterObservivng
+          make_text_sub_menu_item text = "Quit Observing" id = quit_observe_temp pad_choose_script = QuitBetterObserving
         else
-          make_text_sub_menu_item text = "Rejoin Next Game" id = quit_observe_temp pad_choose_script = QuitBetterObservivng
+          make_text_sub_menu_item text = "Rejoin Next Game" id = quit_observe_temp pad_choose_script = QuitBetterObserving
         endif
       else
         if not GoalManager_HasActiveGoals
-          make_text_sub_menu_item text = "Quit Observing" not_focusable id = quit_observe_temp pad_choose_script = QuitBetterObservivng
+          make_text_sub_menu_item text = "Quit Observing" not_focusable id = quit_observe_temp pad_choose_script = QuitBetterObserving
         else
-          make_text_sub_menu_item text = "Rejoin Next Game" not_focusable id = quit_observe_temp pad_choose_script = QuitBetterObservivng
+          make_text_sub_menu_item text = "Rejoin Next Game" not_focusable id = quit_observe_temp pad_choose_script = QuitBetterObserving
         endif
       endif
     endif
@@ -889,7 +891,6 @@ script exit_pause_menu menu_id = current_menu_anchor
   if not RunningReplay
     GoalManager_UnPauseAllGoals
   endif
-  SetViewMode 0
   if ObjectExists id = <menu_id>
     DestroyScreenElement id = <menu_id>
   endif
