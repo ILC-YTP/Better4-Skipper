@@ -96,6 +96,8 @@ PowerslideR2 = [ { Trigger = { HoldThree R2 R2 R2 } Scr = ToggleSwitchRegular pa
 PowerslideL2 = [ { Trigger = { HoldThree L2 L2 L2 } Scr = ToggleSwitchRegular params = { PowerSlide } } ]
 PowerslideR1 = [ { Trigger = { HoldThree R1 R1 R1 } Scr = ToggleSwitchRegular params = { PowerSlide } } ]
 PowerslideL1 = [ { Trigger = { HoldThree L1 L1 L1 } Scr = ToggleSwitchRegular params = { PowerSlide } } ]
+PowerslideDownDownR2 = [ { Trigger = { TripleInOrder , a = Down , b = Down , R2 , 333 } Scr = ToggleSwitchRegular params = { PowerSlide } } ]
+PowerslideDownDownR1 = [ { Trigger = { TripleInOrder , a = Down , b = Down , R1 , 333 } Scr = ToggleSwitchRegular params = { PowerSlide } } ]
 
 better4_control_powerslide_index = 0
 better4_control_powerslide_value = PowerslideVanilla
@@ -115,6 +117,8 @@ better4_control_powerslide = {
     { text = "\bg" value = PowerslideL2 } // L2
     { text = "\bf" value = PowerslideR1 } // R1
     { text = "\be" value = PowerslideL1 } // L1
+    { text = "\b4+\b4+\bh" value = PowerslideDownDownR2 } // Down+Down+R2
+    { text = "\b4+\b4+\bf" value = PowerslideDownDownR1 } // Down+Down+R1
   ]
 }
 
@@ -306,10 +310,10 @@ DropdownVanilla = [
 ]
 DropdownOnlyR2 = [ { Trigger = { Press R2 100 } Scr = SkateInOrBail params = { FallingRight GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
 DropdownOnlyL2 = [ { Trigger = { Press L2 100 } Scr = SkateInOrBail params = { FallingLeft GrindBail = Airborne moveleft = 5 moveright = -5 movey = 5 } } ]
-DropdownR2andL2 = [ { Trigger = { HoldThree L2 R2 L2 } Scr = SkateInOrBail params = { FallingLeft GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
+DropdownR2andL2 = [ { Trigger = { HoldThree L2 R2 L2 } Scr = SkateInOrBail params = { FallingRight GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
 DropdownOnlyR1 = [ { Trigger = { Press R1 100 } Scr = SkateInOrBail params = { FallingRight GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
 DropdownOnlyL1 = [ { Trigger = { Press L1 100 } Scr = SkateInOrBail params = { FallingLeft GrindBail = Airborne moveleft = 5 moveright = -5 movey = 5 } } ]
-DropdownR1andL1 = [ { Trigger = { HoldThree L1 R1 L1 } Scr = SkateInOrBail params = { FallingLeft GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
+DropdownR1andL1 = [ { Trigger = { HoldThree L1 R1 L1 } Scr = SkateInOrBail params = { FallingRight GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } } ]
 DropdownR1orL1 = [
   { Trigger = { Press L1 100 } Scr = SkateInOrBail params = { FallingLeft GrindBail = Airborne moveleft = 5 moveright = -5 movey = 5 } }
   { Trigger = { Press R1 100 } Scr = SkateInOrBail params = { FallingRight GrindBail = Airborne moveright = -5 moveleft = 5 movey = 5 } }
@@ -407,6 +411,26 @@ better4_control_doubletapgrinds = {
     { text = "On" value = on }
   ]
 }
+
+better4_control_grindcooldown_index = 0
+better4_control_grindcooldown_value = 500
+better4_control_grindcooldown = {
+  id = better4_control_grindcooldown_id
+  index_name = better4_control_grindcooldown_index
+  value_name = better4_control_grindcooldown_value
+  text = "Grind Cooldown"
+  ini_key = "grindcooldown"
+  help = "Change the length of the cooldown period between ending a grind and starting the next one."
+  options = [
+    { text = "Vanilla" value = 500 }
+    { text = "Fast" value = 100 }
+  ]
+  change_script = better4_control_grindcooldown_change
+}
+
+script better4_control_grindcooldown_change
+  Change Rail_minimum_rerail_time = better4_control_grindcooldown_value
+endscript
 
 better4_control_pressure_index = 0
 better4_control_pressure_value = off
@@ -632,6 +656,7 @@ better4_control_aspect_ratio = {
     { text = "16:9" value = 1.77778 }
     { text = "16:10" value = 1.6 }
     { text = "4:3" value = 1.33333 }
+    { text = "6:5" value = 1.2 } // closer to ratio created by pcsx2
   ]
   change_script = better4_change_aspect_ratio
 }
@@ -1123,6 +1148,33 @@ script better4_change_playerlist
   endif
 endscript
 
+better4_control_timer_index = 3
+better4_control_timer_value = 1.0
+better4_control_timer = {
+  id = better4_control_timer_id
+  index_name = better4_control_timer_index
+  value_name = better4_control_timer_value
+  text = "Timer"
+  ini_key = "Timer"
+  help = "Change the size of the timer displayed at the top of the screen."
+  options = [
+    { text = "Off" value = off }
+    { text = "Small" value = 0.33 }
+    { text = "Medium" value = 0.67 }
+    { text = "Large" value = 1.0 }
+  ]
+  change_script = better4_change_timer
+}
+
+script better4_change_timer
+  if ScreenElementExists id = the_time
+    DoScreenElementMorph {
+      id = the_time
+      scale = ( 1.3 * better4_control_timer_value )
+    }
+  endif
+endscript
+
 better4_control_menudemo_index = 1
 better4_control_menudemo_value = on
 better4_control_menudemo = {
@@ -1248,6 +1300,7 @@ script better4_controls_init
   better4_control_init better4_control_liptricks
   better4_control_init better4_control_railspin
   better4_control_init better4_control_doubletapgrinds
+  better4_control_init better4_control_grindcooldown
   better4_control_init better4_control_wallieplant
   better4_control_init better4_control_wallspin
   better4_control_init better4_control_wallridebail
@@ -1271,6 +1324,7 @@ script better4_controls_init
   better4_control_init better4_control_perfectlanding
   better4_control_init better4_control_goalpts
   better4_control_init better4_control_playerlist
+  better4_control_init better4_control_timer
   better4_control_init better4_control_menudemo
   better4_control_init better4_control_respawn_on_newrun
   better4_control_init better4_control_updatedcollision

@@ -157,11 +157,7 @@ script GameFlow_StartRun
       Skater:Obj_SpawnScript CleanUp_Scuffs
     endif
   endif
-  if not IsTrue Bootstrap_Build
-    if not InNetGame
-      toggle_geo_nomenu toggle_comp_geo_params
-    endif
-  endif
+  toggle_geo_nomenu toggle_comp_geo_params
   toggle_geo_nomenu toggle_proset1_params
   toggle_geo_nomenu toggle_proset2_params
   toggle_geo_nomenu toggle_proset3_params
@@ -201,7 +197,9 @@ script GameFlow_StartRun
     LogInfo "starting a run....skip tracks and crank up the music"
     if GameModeEquals is_horse
     else
-      SkipMusicTrack
+      if not IsTrue ALWAYSPLAYMUSIC
+        SkipMusicTrack
+      endif
     endif
     if IsCareerMode
       if IsTrue ALWAYSPLAYMUSIC

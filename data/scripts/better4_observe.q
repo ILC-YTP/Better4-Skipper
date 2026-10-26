@@ -32,11 +32,11 @@ script EnterBetterObserve
       restore_start_key_binding
     endif
   else
-    QuitBetterObservivng
+    QuitBetterObserving
   endif
 endscript
 
-script QuitBetterObservivng
+script QuitBetterObserving
    if GoalManager_HasActiveGoals
     QueueObserveSelf
     exit_pause_menu
@@ -49,13 +49,6 @@ script QuitBetterObservivng
     EnablePlayerNames
     EnableHUD
     MakeSkaterGoto SkaterInit
-  endif
-endscript
-
-script ObserveActionEnter
-  if not IsBetterObserving
-    ObserveAfter0
-    create_observer_ui
   endif
 endscript
 
@@ -143,55 +136,55 @@ script destroy_obs_player_name
   endif
 endscript
 
+script create_observer_handlers
+  SetScreenElementProps {
+    id = root_window
+    event_handlers = [
+      { pad_left    ObserveActionPrev         params = { } }
+      { pad_right   ObserveActionNext         params = { } }
+      { pad_square  ObserveActionToggleHUD    params = { } }
+      { pad_space   ObserveActionToggleNames  params = { } }
+      { pad_choose  ObserveActionNext         params = { } }
+      { pad_back    ObserveActionPrev         params = { } }
+    ]
+  }
+endscript
+
 script create_observer_ui
-  SetScreenElementProps {
-    id = root_window
-    event_handlers = [
-      { pad_left    ObserveActionPrev        params = { } }
-      { pad_right   ObserveActionNext        params = { } }
-      { pad_square  ObserveActionToggleHUD  params = { } }
-      { pad_space  ObserveActionToggleNames  params = { } }
-      { pad_choose  ObserveActionNext        params = { } }
-    ]
-  }
-   create_helper_text_observe { 
-     helper_text_elements = [ 
-       { text = "\b6/\b5 = Cycle Camera" }
-       { text = "\b1 = Toggle HUD" }
-       { text = "\b0 = Toggle Player Names" }
-     ]
-     parent = root_window
-  }
-  display_obs_player_name
-endscript
-
-script set_observe_prompt_event
-  SetScreenElementProps {
-    id = root_window
-    event_handlers = [
-      { pad_choose ObserveActionEnter params = { } }
-    ]
-  }
-endscript
-
-script destroy_observer_ui
-  create_helper_text_no_bg { 
-    helper_text_elements = [ 
+  create_helper_text_observe {
+    helper_text_elements = [
+      { text = "\b6/\b5 = Cycle Camera" }
+      { text = "\b1 = Toggle HUD" }
+      { text = "\b0 = Toggle Player Names" }
     ]
     parent = root_window
- }
+  }
+  display_obs_player_name
+  create_observer_handlers
+endscript
+
+script destroy_observer_handlers
   SetScreenElementProps {
     id = root_window
     event_handlers = [
       { pad_left    null_script }
       { pad_right   null_script }
       { pad_square  null_script }
-      { pad_space  null_script }
+      { pad_space   null_script }
       { pad_choose  null_script }
+      { pad_back    null_script }
     ]
     replace_handlers
   }
+endscript
+
+script destroy_observer_ui
+  destroy_observer_handlers
   destroy_obs_player_name
+  create_helper_text_no_bg {
+    helper_text_elements = []
+    parent = root_window
+  }
 endscript
 
 script restart_game_rank_screen
@@ -207,8 +200,9 @@ script restore_rank_screen_events
       { pad_left    null_script }
       { pad_right   null_script }
       { pad_square  restart_game_rank_screen }
-      { pad_space  null_script }
+      { pad_space   null_script }
       { pad_choose  close_rankings }
+      { pad_back    null_script }
     ]
     replace_handlers
   }

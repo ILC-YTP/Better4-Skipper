@@ -660,6 +660,16 @@ script launch_main_menu
   remove_pause_menu_textures_from_vram
   create_main_menu
 endscript
+better4_startup_level_done = 0
+script better4_startup_level
+  if CustomSkaterFileNameDefined
+    load_pro_skater name = custom
+    cas_post_load
+  endif
+  SetGameType <mode>
+  SetCurrentGameType
+  level_select_change_level level = <level>
+endscript
 script start_internet_game
   memcard_menus_cleanup
   add_main_menu_textures_to_vram
@@ -677,6 +687,16 @@ script start_internet_game
   select_xbox_multiplayer { change_gamemode = change_gamemode_net }
 endscript
 script create_main_menu
+  if ( better4_startup_level_done = 0 )
+    Change better4_startup_level_done = 1
+    if GetIniString section = "Miscellaneous" key = "StartupLevel" ValueName = startup_level
+      FormatText ChecksumName = level "Load_%s" s = <startup_level>
+      GetIniString section = "Miscellaneous" key = "StartupMode" ValueName = startup_mode fallback = "freeskate"
+      FormatText ChecksumName = mode "%s" s = <startup_mode>
+      better4_startup_level level = <level> mode = <mode>
+      return
+    endif
+  endif
   if ObjectExists id = current_menu_anchor
     DestroyScreenElement id = current_menu_anchor
   endif
@@ -2241,13 +2261,13 @@ script skateshop_practice_start_pressed
   unhide_root_window
   GetTags
   if ChecksumEquals a = <menu_state> b = on
-    PauseMusicAndStreams 0
+    UnPauseMusicAndStreams
     UnPauseGame
     exit_pause_menu
   endif
   if ChecksumEquals a = <menu_state> b = off
     LogInfo "-------------------- PAUSING GAME ----------------------"
-    PauseMusicAndStreams 1
+    PauseStreamsKeepMusic
     PauseGame
     pause_trick_text
     pause_balance_meter
@@ -3346,6 +3366,37 @@ script check_if_part_colorable
   endif
   return is_enabled = <retVal>
 endscript
+
+script check_if_secondary_colorable
+	check_if_part_colorable <...>
+	
+	if ( <is_enabled> = 0 )
+		return is_enabled = <is_enabled>
+	endif
+
+	if GotParam parts
+		GetArraySize <parts>
+		<index> = 0
+		begin
+			GetCurrentSkaterProfileIndex
+			if GetPlayerAppearancePart player = <currentSkaterProfileIndex> part = ( <parts> [<index>] )
+				GetActualCASOptionStruct part = ( <parts> [<index>] ) desc_id = <desc_id>
+				if GotParam multicolor
+					<ret_val> = <multicolor>
+					break
+				else
+					<ret_val> = 0
+					break
+				endif
+			endif
+			
+			<index> = ( <index> + 1 )
+		repeat <array_size>
+	endif
+	
+	return is_enabled = <ret_val>
+endscript
+
 script check_option_is_enabled
    <ret_val> = 1
   if GotParam is_enabled_script
@@ -3397,6 +3448,7 @@ script edit_skater_create_options_menu
     GetArraySize <options_array>
      <index> = 0
     begin
+      RemoveParameter categorized
       RemoveParameter not_focusable
       RemoveParameter is_enabled_script
       RemoveParameter is_visible_script
@@ -3406,8 +3458,16 @@ script edit_skater_create_options_menu
       endif
       check_option_is_visible ( <options_array> [ <index> ] )
       if not ( <is_visible> = 0 )
+        <option> = ( <options_array> [ <index> ] )
+        AddParams <option>
+        // NOTE (ellie): remove before final merge or make cleaner?
+        if GotParam categorized
+          <pad_choose_script> = better4_create_cas_part_menu
+        else
+          <pad_choose_script> = edit_skater_create_cas_menu
+        endif
         edit_skater_menu_add_item {
-          ( <options_array> [ <index> ] )
+          <option>
           tab = tab2
           index = <index>
           options_array = <options_array>
@@ -3415,6 +3475,7 @@ script edit_skater_create_options_menu
           cam_anim = <cam_anim>
           should_add_reset_tattoos = <should_add_reset_tattoos>
           should_add_reset_scaling = <should_add_reset_scaling>
+          pad_choose_script = <pad_choose_script>
         }
       endif
        <index> = ( <index> + 1 )
@@ -4014,6 +4075,24 @@ script edit_skater_create_scrolling_menu
       { pad_back <pad_back_script> params = <pad_back_params> }
     ]
   }
+  if GotParam pad_left_script
+    SetScreenElementProps {
+      id = edit_skater_vmenu
+      event_handlers = [
+        { pad_left <pad_left_script> params = <pad_left_params> }
+      ]
+      replace_handlers
+    }
+  endif
+  if GotParam pad_right_script
+    SetScreenElementProps {
+      id = edit_skater_vmenu
+      event_handlers = [
+        { pad_right <pad_right_script> params = <pad_right_params> }
+      ]
+      replace_handlers
+    }
+  endif
   if LevelIs load_skateshop
     SetScreenElementProps {
       id = edit_skater_vmenu
@@ -5111,6 +5190,7 @@ edit_skater_head_options = [
     is_visible_params2 = { group = hat_items }
     is_enabled_script = check_if_part_logoable
     is_enabled_params = { parts = [ hat ] }
+    categorized
   }
   {
     text = 'Glasses'
@@ -5121,6 +5201,7 @@ edit_skater_head_options = [
     is_visible_params2 = { group = glasses_items }
     is_enabled_script = check_if_group_editable
     is_enabled_params = { parts = [ Glasses ] }
+    categorized
   }
   {
     text = 'Glasses Color'
@@ -5139,6 +5220,7 @@ edit_skater_torso_options = [
     submenu = shirt_style_menu
     is_visible_script = check_if_group_editable
     is_visible_params = { group = torso_items }
+    categorized
   }
   {
     text = 'Shirt Color'
@@ -5149,12 +5231,21 @@ edit_skater_torso_options = [
     is_enabled_params = { parts = [ skater_m_torso skater_f_torso ] }
   }
   {
+    text = 'Sleeve Color'
+    submenu = sleeve_color_menu
+    is_visible_script = check_if_group_editable
+    is_visible_params = { group = torso_items }
+    is_enabled_script = check_if_secondary_colorable
+    is_enabled_params = { parts = [ skater_m_torso skater_f_torso ] }
+  }
+  {
     text = 'Front Logo'
     submenu = front_logo_menu
     is_visible_script = check_if_group_editable
     is_visible_params = { group = torso_items }
     is_enabled_script = check_if_part_logoable
     is_enabled_params = { parts = [ skater_m_torso skater_f_torso ] }
+    categorized
   }
   {
     text = 'Back Logo'
@@ -5163,6 +5254,7 @@ edit_skater_torso_options = [
     is_visible_params = { group = torso_items }
     is_enabled_script = check_if_part_back_logoable
     is_enabled_params = { parts = [ skater_m_torso skater_f_torso ] }
+    categorized
   }
   {
     text = 'Backpack'
@@ -5263,6 +5355,7 @@ edit_skater_leg_options = [
     cam_anim_sub = SS_Appearance_Feet
     is_visible_script = check_if_group_editable
     is_visible_params = { group = shoes_items }
+    categorized
   }
   {
     text = 'Shoe Color'
@@ -5270,6 +5363,15 @@ edit_skater_leg_options = [
     is_visible_script = check_if_group_editable
     is_visible_params = { group = shoes_items }
     is_enabled_script = check_if_part_colorable
+    is_enabled_params = { parts = [ shoes ] }
+    cam_anim_sub = SS_Appearance_Feet
+  }
+  {
+    text = 'Shoelace Color'
+    submenu = shoelace_color_menu
+    is_visible_script = check_if_group_editable
+    is_visible_params = { group = shoes_items }
+    is_enabled_script = check_if_secondary_colorable
     is_enabled_params = { parts = [ shoes ] }
     cam_anim_sub = SS_Appearance_Feet
   }
@@ -5365,6 +5467,7 @@ edit_skater_pad_options = [
     is_enabled_script = check_if_part_logoable
     is_enabled_params = { parts = [ helmet ] }
     cam_anim_sub = SS_Appearance_Face
+    categorized
   }
   {
     text = 'Elbowpads'

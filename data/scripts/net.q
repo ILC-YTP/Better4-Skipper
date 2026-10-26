@@ -37,6 +37,7 @@ level_info = [
   { name = "Rio" checksum = Load_Rio }
   { name = "Streets" checksum = Load_Streets }
   { name = "New York City" checksum = Load_NYC }
+  { name = "Canada" checksum = Load_Can }
   // keep moto and created park at bottom so that they're excluded from random lvl
   { name = "Created Park" checksum = load_Sk4Ed_gameplay }
   { name = "MotoX" checksum = Load_Motox }
@@ -117,6 +118,7 @@ script create_big_black_hiding_box
 endscript
 script quit_network_game
   better4_modifiers_init
+  better4_lvlobjs_init
   ObserveSelf
   destroy_observer_ui
   EnablePlayerNames
@@ -2213,6 +2215,7 @@ script net_chosen_join_server
     StopBetterServerList
     StopBetterPlayerList
     better4_modifiers_init
+    better4_lvlobjs_init
     JoinServer <...>
   endif
   PlaySkaterCamAnim name = SS_MenuCam play_hold
@@ -2242,7 +2245,7 @@ net_status_nat_neg_failed = "Failed to connect to server. Refresh your server li
 net_status_join_failed = "Failed to join game.  Refresh your game list and try again."
 
 script show_nat_start_dialog
-  PauseMusicAndStreams
+  PauseStreamsKeepMusic
   create_dialog_box {
     title = net_status_msg
     text = net_status_locating
@@ -3018,7 +3021,8 @@ script create_network_host_options_menu
           text1 = "Lvl. Objs:"
           text2 = "Toggle level objects"
           id = menu_network_host_options_level_objects
-          pad_choose_script = create_pro_trick_objects_menu
+          // pad_choose_script = create_pro_trick_objects_menu
+          pad_choose_script = better4_create_lvlobjs_menu
         }
         network_host_options_menu_add_item {
           text1 = "Game Mods:"
@@ -3201,7 +3205,7 @@ script chosen_start_game
   endif
 endscript
 script network_options_selected
-  PauseMusicAndStreams 1
+  PauseStreamsKeepMusic
   launch_network_host_options_menu
 endscript
 script network_game_options_selected
