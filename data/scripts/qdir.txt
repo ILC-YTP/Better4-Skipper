@@ -62,7 +62,7 @@ goal_combo_scripts.qb
 goal_competition.qb
 goal_counter.qb
 goal_countercombo.qb
-goal_descriptions.qb
+better4/goal_descriptions.qb
 goal_gaps.qb
 goal_highcombo.qb
 goal_horse.qb
