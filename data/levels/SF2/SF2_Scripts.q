@@ -349,7 +349,7 @@ script SF2_AddGoal_Gaps3
     Intro_Node = TRG_G_GAP3_Intro_Node
     time = 6
     Pro = "Chad"
-    Full_Name = "Chad Muska"
+    Full_Name = "Chad "
     ProSet_Prefix = "ProSet1_"
     Geo_Prefix = "G_GAPS3_"
     Pro_Goal
@@ -423,10 +423,10 @@ endscript
 script SF2_AddGoal_Horse
   AddGoal_Horse {
     record_type = Score
-    Goal_Text = "Beat Muska's 3 best combos"
-    View_Goals_Text = "Beat Muska's 3 best combos"
+    Goal_Text = "Beat 's 3 best combos"
+    View_Goals_Text = "Beat 's 3 best combos"
     Pro = "Chad"
-    Full_Name = "Chad Muska"
+    Full_Name = "Chad "
     Current_Goal_Text = "Beat my combo:"
     Start_Cam_Anim = G_Horse_CameraStart
     success_cam_anim = G_HORSE_CameraSuccess
@@ -494,7 +494,7 @@ script SF2_AddGoal_Tetris
     time = 60
     Trick_Flag = 0
     Goal_Text = "Hit the tricks into or off of the EMB ledge"
-    View_Goals_Text = "Nail the tricks Muska yell out"
+    View_Goals_Text = "Nail the tricks Muska yells out"
     Start_Cam_Anim = G_TETRIS_CameraStart
     success_cam_anim = G_TETRIS_CameraSuccess
     Unlocked_By_Another
